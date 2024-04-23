@@ -1,0 +1,2247 @@
+{\rtf1\ansi\ansicpg936\deff0\deflang1033\deflangfe2052{\fonttbl{\f0\fnil\fcharset134 \'cb\'ce\'cc\'e5;}}
+{\colortbl ;\red255\green0\blue0;\red0\green0\blue255;\red0\green0\blue0;}
+\viewkind4\uc1\pard\cf1\lang2052\f0\fs18\'cf\'ee\'c4\'bf\'ca\'c2\'bc\'fe\par
+\par
+\cf2 BeforeConnectOuterDataSource\par
+\par
+\cf3 If e.name = "lt" Then\par
+    e.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & e.ProjectPath & "lt.mdb;Persist Security Info=False"\par
+End If\par
+\par
+\cf2 AfterOpenProject\par
+\par
+\cf3 Vars("\'bf\'aa\'c6\'b1\'d7\'dc\'bd\'f0\'b6\'ee") = 0\par
+Dim nms2 As New List(Of String) From \{"dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed", "dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae", "\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd"\}\par
+\par
+For Each r As Table In Tables\par
+    If nms2.Contains(r.Name) Then\par
+        r.Visible = False\par
+    End If \par
+Next\par
+\par
+ApplicationTitle="\'b7\'c4\'d6\'af\'bf\'aa\'c6\'b1\'d6\'fa\'ca\'d6"\par
+\par
+\cf2 MainTableChanged\par
+\par
+\cf3 If MainTable.Name = "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae" Then\par
+    Forms("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da").Open()\par
+End If\par
+\par
+\cf1\'bc\'c6\'bb\'ae\'b9\'dc\'c0\'ed\par
+\par
+\'b1\'ed\'ca\'c2\'bc\'fe\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae_PrepareEdit\par
+\par
+\cf3 '\'c8\'e7\'b9\'fb\'b4\'b0\'bf\'da\'c3\'bb\'b4\'f2\'bf\'aa\'b2\'bb\'c4\'dc\'b1\'e0\'bc\'ad \par
+If Forms("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad").Opened = False Then\par
+     e.Cancel = True \par
+End If\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae_CurrentChanged\par
+\par
+\cf3 If e.Table.Name <> "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae" Then\par
+    Return\par
+End If \par
+\par
+If Forms("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da").Opened Then\par
+    If e.Table.Current IsNot Nothing Then\par
+        'MessageBox.Show("select * from dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed where \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & e.Table.Current("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+        Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1").fill ("select * from dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed where \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & e.Table.Current("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'", "LiteInvoiceNew2024", True)\par
+        Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2").fill ("select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & e.Table.Current("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'", "LiteInvoiceNew2024", True)\par
+        \par
+        \par
+        \par
+        '\'c9\'e8\'d6\'c3Table1\'b5\'c4\'b7\'d6\'d7\'e9\'cd\'b3\'bc\'c6\par
+        Dim t As New SubtotalGroup '\'b6\'a8\'d2\'e5\'d2\'bb\'b8\'f6\'d0\'c2\'b5\'c4\'b7\'d6\'d7\'e9\par
+        t.GroupOn = "\'c6\'b7\'c3\'fb" '\'b7\'d6\'d7\'e9\'c1\'d0\'ce\'aa\'bf\'cd\'bb\'a7\'c1\'d0\par
+        t.TotalOn = "\'bd\'f0\'b6\'ee" '\'b6\'d4\'ca\'fd\'c1\'bf\'ba\'cd\'bd\'f0\'b6\'ee\'bd\'f8\'d0\'d0\'cd\'b3\'bc\'c6\par
+        With Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1")\par
+            .SubtotalGroups.Clear() '\'c7\'e5\'b3\'fd\'d4\'ad\'d3\'d0\'b5\'c4\'b7\'d6\'d7\'e9\par
+            .SubtotalGroups.Add(t) '\'bc\'d3\'c8\'eb\'b8\'d5\'b8\'d5\'b6\'a8\'d2\'e5\'b5\'c4\'b7\'d6\'d7\'e9\par
+            .Subtotal() '\'c9\'fa\'b3\'c9\'bb\'e3\'d7\'dc\'c4\'a3\'ca\'bd\par
+        End With\par
+        \par
+        Dim g As New SubtotalGroup '\'b6\'a8\'d2\'e5\'d2\'bb\'b8\'f6\'d0\'c2\'b5\'c4\'b7\'d6\'d7\'e9\par
+        g.GroupOn = "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5" '\'b7\'d6\'d7\'e9\'c1\'d0\'ce\'aa\'bf\'cd\'bb\'a7\'c1\'d0\par
+        g.TotalOn = "\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee" '\'b6\'d4\'ca\'fd\'c1\'bf\'ba\'cd\'bd\'f0\'b6\'ee\'bd\'f8\'d0\'d0\'cd\'b3\'bc\'c6\par
+        With Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2")\par
+            .SubtotalGroups.Clear() '\'c7\'e5\'b3\'fd\'d4\'ad\'d3\'d0\'b5\'c4\'b7\'d6\'d7\'e9\par
+            .SubtotalGroups.Add(g) '\'bc\'d3\'c8\'eb\'b8\'d5\'b8\'d5\'b6\'a8\'d2\'e5\'b5\'c4\'b7\'d6\'d7\'e9\par
+            .Subtotal() '\'c9\'fa\'b3\'c9\'bb\'e3\'d7\'dc\'c4\'a3\'ca\'bd\par
+        End With\par
+        \par
+        Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1")\par
+        Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2")\par
+    End If \par
+    \par
+    \par
+Else\par
+    Forms("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da").Open()\par
+End If\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae_DoubleClick\par
+\par
+\cf3 '\'d2\'d1\'c9\'f3\'ba\'cb\'b5\'c4\'b5\'a5\'d7\'d3\'ca\'c7\'b2\'e9\'bf\'b4\'d7\'b4\'cc\'ac\'a3\'ac\'c3\'bb\'d3\'d0\'c9\'f3\'ba\'cb\'b5\'c4\'b5\'a5\'d7\'d3\'ca\'c7\'b1\'e0\'bc\'ad\'d7\'b4\'cc\'ac\par
+If e.Row("\'d7\'b4\'cc\'ac") <> "\'d2\'d1\'c9\'f3\'ba\'cb" Then\par
+    Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'b1\'e0\'bc\'ad"\par
+Else\par
+    Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'b2\'e9\'bf\'b4" \par
+End If \par
+\par
+Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = e.Row("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+Forms("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad").Open()\par
+\par
+\cf2 dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2_DoubleClick\par
+\par
+\cf3 Forms("\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").Open()\par
+\par
+\cf2 dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae_DataRowAdding\par
+\par
+\cf3 e.DataRow("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "KP" & Format(Date.Now, "yyyyMMddHHmmss")\par
+Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = e.DataRow("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+\par
+\cf2 dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed_DataColChanged\par
+\par
+\cf3 If e.DataCol.Name = "\'b5\'a5\'bc\'db" Or e.DataCol.Name = "\'ca\'fd\'c1\'bf" Then\par
+    If e.DataRow("\'bd\'f0\'b6\'ee") > 0 Then\par
+        If e.DataCol.Name = "\'b5\'a5\'bc\'db" Then\par
+            e.DataRow("\'ca\'fd\'c1\'bf") = e.DataRow("\'bd\'f0\'b6\'ee") / e.DataRow("\'b5\'a5\'bc\'db")\par
+        Else If e.DataCol.Name = "\'ca\'fd\'c1\'bf" Then\par
+            e.DataRow("\'b5\'a5\'bc\'db") = e.DataRow("\'bd\'f0\'b6\'ee") / e.DataRow("\'ca\'fd\'c1\'bf")\par
+        End If \par
+    Else\par
+        e.DataRow("\'bd\'f0\'b6\'ee") = e.DataRow("\'b5\'a5\'bc\'db") * e.DataRow("\'ca\'fd\'c1\'bf")\par
+    End If \par
+Else If e.DataCol.Name = "\'bd\'f0\'b6\'ee"\par
+    If e.DataRow("\'b5\'a5\'bc\'db") > 0 Then\par
+        e.DataRow("\'ca\'fd\'c1\'bf") = e.DataRow("\'bd\'f0\'b6\'ee") / e.DataRow("\'b5\'a5\'bc\'db")\par
+    Else If e.DataRow("\'ca\'fd\'c1\'bf") > 0\par
+        e.DataRow("\'b5\'a5\'bc\'db") = e.DataRow("\'bd\'f0\'b6\'ee") / e.DataRow("\'ca\'fd\'c1\'bf")\par
+    End If\par
+End If\par
+Vars("\'bf\'aa\'c6\'b1\'d7\'dc\'bd\'f0\'b6\'ee") = Tables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").Compute("sum(\'bd\'f0\'b6\'ee)")\par
+\par
+\cf2 dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_PrepareEdit\par
+\par
+\cf3 '\'c8\'e7\'b9\'fb\'b4\'b0\'bf\'da\'c3\'bb\'b4\'f2\'bf\'aa\'b2\'bb\'c4\'dc\'b1\'e0\'bc\'ad \par
+If Forms("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Opened = False Then\par
+     e.Cancel = True   \par
+End If\par
+\par
+\cf2 dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_CurrentChanged\par
+\par
+\cf3 If e.Table.Name <> "dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae" Then\par
+    Return\par
+End If\par
+\par
+\par
+'Dim num As Integer = e.Table.Current("\'b1\'b8\'d7\'a2").IndexOf("HK")\par
+'Dim str As String\par
+'Dim sql As String\par
+'sql = "select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where \'b1\'b8\'d7\'a2 like '%" & e.Table.Current("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "%'"\par
+'If num > -1 Then\par
+'    str = e.Table.Current("\'b1\'b8\'d7\'a2").SubString(num, 16)\par
+'    sql = sql & " union select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where \'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & str & "'"\par
+'End If \par
+\par
+'Dim cmd As New SQLCommand\par
+'cmd.ConnectionName = "lt"\par
+'Dim dt As DataTable \par
+'cmd.CommandText = sql '\'c9\'fa\'b3\'c9\'bf\'d5\'b1\'ed\par
+'dt = cmd.ExecuteReader() '\'bc\'c7\'b5\'c3\'bd\'ab\'b2\'ce\'ca\'fd\'c9\'e8\'d6\'c3\'ce\'aaTrue\par
+\par
+'If Forms("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'a3\'a8\'b8\'b1\'a3\'a9").Opened Then\par
+'    Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'a3\'a8\'b8\'b1\'a3\'a9_Table1").DataSource = dt\par
+'    Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'a3\'a8\'b8\'b1\'a3\'a9_Table1")\par
+'Else\par
+'    Forms("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'a3\'a8\'b8\'b1\'a3\'a9").Open()\par
+'End If\par
+\par
+\cf2 dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_DoubleClick\par
+\par
+\cf3 Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0\'d7\'b4\'cc\'ac") = "\'b2\'e9\'bf\'b4"\par
+Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0") = e.Row\par
+Forms("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Open()\par
+\par
+\cf2 dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_DataColChanging\par
+\par
+\cf3 If e.DataCol.Name = "\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5" Then\par
+    Dim dr As DataRow = DataTables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").sqlFind("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5='" & e.DataRow("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") & "'")\par
+    If dr IsNot Nothing Then\par
+        e.DataRow("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+    End If\par
+End If\par
+\par
+\cf2 dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_DataColChanged\par
+\par
+\cf3 If e.DataCol.Name = "\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5" Then\par
+    Dim dr As DataRow = DataTables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").sqlFind("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5='" & e.DataRow("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") & "'")\par
+    If dr IsNot Nothing Then\par
+        e.DataRow("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+    End If\par
+End If\par
+\par
+\cf2 dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_BeforeDeleteDataRow\par
+\par
+\cf3 '\'d6\'b1\'bd\'d3\'d4\'da\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'d6\'d0\'c9\'be\'b3\'fd\'c1\'f7\'cb\'ae\'ca\'b1\'b5\'c4\'c7\'e9\'bf\'f6\par
+If e.DataRow("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "" Then\par
+    e.Continue = True\par
+    Return\par
+Else\par
+    MessageBox.Show("\'b2\'bb\'c4\'dc\'c9\'be\'b3\'fd\'d3\'d0\'bf\'aa\'c6\'b1\'ca\'fd\'be\'dd\'b5\'c4\'c1\'f7\'cb\'ae\'b5\'a5")\par
+    e.Cancel = True\par
+    Return\par
+End If \par
+\par
+\par
+'\'d4\'da\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'d0 \'b7\'b4\'c9\'f3\'ca\'b1\'c9\'be\'b3\'fd\'d0\'c2\'d4\'f6\'b5\'c4\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'b5\'c4\'c7\'e9\'bf\'f6\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") <> "\'b2\'e9\'bf\'b4" Then\par
+    If e.DataRow("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") IsNot Nothing OrElse e.DataRow("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1" Then\par
+        MessageBox.Show("\'b2\'bb\'c4\'dc\'c9\'be\'b3\'fd\'d3\'d0\'bf\'aa\'c6\'b1\'ca\'fd\'be\'dd\'b5\'c4\'c1\'f7\'cb\'ae\'b5\'a5")\par
+        e.Cancel = True\par
+    End If\par
+Else\par
+    e.Continue = True\par
+End If\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_DoubleClick\par
+\par
+\cf3 Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'d7\'b4\'cc\'ac") = "\'b1\'e0\'bc\'ad"\par
+Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = e.Row("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+Forms("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae").Open\par
+\par
+\cf1\'b4\'b0\'bf\'da\'b1\'ed\'ca\'c2\'bc\'fe\par
+\par
+\cf2 _Table1_DoubleClick\par
+\par
+\cf3 Forms("\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1").DropDownBox.CloseDropDown()\par
+\par
+\cf2 _Table1_KeyDown\par
+\par
+\cf3 If e.KeyCode = Keys.Enter Then\par
+    Forms("\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1").DropDownBox.CloseDropdown()\par
+End If\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1_DoubleClick\par
+\par
+\cf3 Dim db1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+Dim tb2 As WinForm.TextBox = e.Form.Controls("tb2")\par
+'\'c9\'b8\'d1\'a1\'b5\'b1\'c7\'b0\'b5\'a5\'ce\'bb\'b5\'c4\'d3\'a6\'ca\'d5\'bf\'ee\'cf\'ee\par
+Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1").Filter = "\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5='" & e.Row("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") & "'"\par
+Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = e.Row("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")=e.Row("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1_BeforeCheckRow\par
+\par
+\cf3 '\'c8\'e7\'b9\'fb\'b5\'b1\'c7\'b0\'b5\'a5\'ce\'bb\'ce\'aa\'bf\'d5,\'b2\'bb\'c4\'dc\'b9\'b4\'d1\'a1\par
+If Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0\'d7\'b4\'cc\'ac") <> "\'d0\'c2\'d4\'f6" Then\par
+    If Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = "" Then\par
+        MessageBox.Show("\'b5\'b1\'c7\'b0\'b5\'a5\'ce\'bb\'b2\'bb\'c4\'dc\'ce\'aa\'bf\'d5")\par
+        e.Cancel = True\par
+    End If\par
+End If\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1_AfterCheckRow\par
+\par
+\cf3 If e.Row.Checked Then\par
+    e.Row("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0"\par
+Else\par
+    e.Row("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = ""\par
+End If\par
+\par
+'\'c9\'e8\'bc\'c6\'ba\'cf\'bc\'c6\'c4\'a3\'ca\'bd\par
+Dim g As New SubtotalGroup '\'b6\'a8\'d2\'e5\'d2\'bb\'b8\'f6\'d0\'c2\'b5\'c4\'b7\'d6\'d7\'e9\par
+g.GroupOn = "\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac" '\'b7\'d6\'d7\'e9\'c1\'d0\'ce\'aa\'bf\'cd\'bb\'a7\'c1\'d0\par
+g.TotalOn = "\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee" '\'b6\'d4\'ca\'fd\'c1\'bf\'ba\'cd\'bd\'f0\'b6\'ee\'bd\'f8\'d0\'d0\'cd\'b3\'bc\'c6\par
+With Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1")\par
+    .SubtotalGroups.Clear() '\'c7\'e5\'b3\'fd\'d4\'ad\'d3\'d0\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .SubtotalGroups.Add(g) '\'bc\'d3\'c8\'eb\'b8\'d5\'b8\'d5\'b6\'a8\'d2\'e5\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .Subtotal() '\'c9\'fa\'b3\'c9\'bb\'e3\'d7\'dc\'c4\'a3\'ca\'bd\par
+End With\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2_DataColChanged\par
+\par
+\cf3 If e.DataCol.Name = "\'b5\'a5\'bc\'db" Or e.DataCol.Name = "\'ca\'fd\'c1\'bf" Then\par
+    If e.DataRow("\'bd\'f0\'b6\'ee") > 0 Then\par
+        If e.DataCol.Name = "\'b5\'a5\'bc\'db" Then\par
+            e.DataRow("\'ca\'fd\'c1\'bf") = e.DataRow("\'bd\'f0\'b6\'ee") / e.DataRow("\'b5\'a5\'bc\'db")\par
+        Else If e.DataCol.Name = "\'ca\'fd\'c1\'bf" Then\par
+            e.DataRow("\'b5\'a5\'bc\'db") = e.DataRow("\'bd\'f0\'b6\'ee") / e.DataRow("\'ca\'fd\'c1\'bf")\par
+        End If \par
+    Else\par
+        e.DataRow("\'bd\'f0\'b6\'ee") = e.DataRow("\'b5\'a5\'bc\'db") * e.DataRow("\'ca\'fd\'c1\'bf")\par
+    End If \par
+Else If e.DataCol.Name = "\'bd\'f0\'b6\'ee"\par
+    If e.DataRow("\'b5\'a5\'bc\'db") > 0 Then\par
+        e.DataRow("\'ca\'fd\'c1\'bf") = e.DataRow("\'bd\'f0\'b6\'ee") / e.DataRow("\'b5\'a5\'bc\'db")\par
+    Else If e.DataRow("\'ca\'fd\'c1\'bf") > 0\par
+        e.DataRow("\'b5\'a5\'bc\'db") = e.DataRow("\'bd\'f0\'b6\'ee") / e.DataRow("\'ca\'fd\'c1\'bf")\par
+    End If\par
+End If\par
+Vars("\'bf\'aa\'c6\'b1\'d7\'dc\'bd\'f0\'b6\'ee") = Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").Compute("sum(\'bd\'f0\'b6\'ee)")\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1_DoubleClick\par
+\par
+\cf3 Dim db1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+db1.Value=e.Row("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1_BeforeCheckRow\par
+\par
+\cf3 Dim db1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+If db1.Value = "" Then\par
+    MessageBox.Show("\'c7\'eb\'cf\'c8\'d1\'a1\'d4\'f1\'b5\'a5\'ce\'bb")\par
+    e.Cancel=True\par
+End If\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1_AfterCheckRow\par
+\par
+\cf3 If e.Row.Checked Then\par
+    e.Row("\'d1\'a1\'d6\'d0") = "\'d1\'a1\'d6\'d0"\par
+    e.Row("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+Else\par
+    e.Row("\'d1\'a1\'d6\'d0") = ""\par
+    e.Row("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")=""\par
+End If\par
+\par
+'\'c9\'e8\'bc\'c6\'ba\'cf\'bc\'c6\'c4\'a3\'ca\'bd\par
+Dim g As New SubtotalGroup '\'b6\'a8\'d2\'e5\'d2\'bb\'b8\'f6\'d0\'c2\'b5\'c4\'b7\'d6\'d7\'e9\par
+g.GroupOn = "\'d1\'a1\'d6\'d0" '\'b7\'d6\'d7\'e9\'c1\'d0\'ce\'aa\'bf\'cd\'bb\'a7\'c1\'d0\par
+g.TotalOn = "\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee" '\'b6\'d4\'ca\'fd\'c1\'bf\'ba\'cd\'bd\'f0\'b6\'ee\'bd\'f8\'d0\'d0\'cd\'b3\'bc\'c6\par
+With Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1")\par
+    .SubtotalGroups.Clear() '\'c7\'e5\'b3\'fd\'d4\'ad\'d3\'d0\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .SubtotalGroups.Add(g) '\'bc\'d3\'c8\'eb\'b8\'d5\'b8\'d5\'b6\'a8\'d2\'e5\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .Subtotal() '\'c9\'fa\'b3\'c9\'bb\'e3\'d7\'dc\'c4\'a3\'ca\'bd\par
+End With\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Load()\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1_AfterCheckRow\par
+\par
+\cf3 If e.Row.Checked Then\par
+      e.Row("\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b9\'b4\'d1\'a1"\par
+      Else\par
+         e.Row("\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac") = "" \par
+ End If\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2_DataColChanged\par
+\par
+\cf3 If e.DataCol.Name = "\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5" Then\par
+    Dim r As DataRow = DataTables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").SQLFind("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5='" & e.NewValue & "'")\par
+    e.DataRow("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = r("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+End If\par
+\par
+\cf2 _Table1_DoubleClick\par
+\par
+\cf3 Dim tbl As Table = Tables("\'b1\'ed\'c4\'da\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+If tbl.Current IsNot Nothing Then\par
+    e.Form.DropDownBox.Value = tbl.Current("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+End If\par
+e.Form.DropDownBox.CloseDropDown()\par
+\par
+\cf1\'b4\'b0\'bf\'da\'d3\'eb\'bf\'d8\'bc\'fe\'ca\'c2\'bc\'fe\par
+\par
+\cf2\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd_AfterLoad\par
+\par
+\cf3 Tables("\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd").Filter="\'b1\'ed\'c3\'fb='" & CurrentTable.Name & "'"\par
+\par
+\cf2\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd_Button1_Click\par
+\par
+\cf3 Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", Tables("\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd").Current("\'b1\'ed\'c3\'fb"))\par
+e.Form.Close()\par
+\par
+\cf2\'b1\'ed\'c4\'da\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_DropDownClosed\par
+\par
+\cf3 If e.Form.DropTable IsNot Nothing Then '\'c8\'e7\'b9\'fb\'ca\'c7\'cd\'a8\'b9\'fd\'b1\'ed\'cf\'c2\'c0\'ad\'b5\'c4\par
+    e.Form.DropTable.FinishEditing()\par
+Else '\'c8\'e7\'b9\'fb\'ca\'c7\'cd\'a8\'b9\'fd\'b4\'b0\'bf\'da\'cf\'c2\'c0\'ad\'b5\'c4\par
+    e.Form.DropDownBox.WriteValue()\par
+End If\par
+\par
+\cf2\'b1\'ed\'c4\'da\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_TextBox1_KeyDown\par
+\par
+\cf3 Dim tbl As Table = Tables("\'b1\'ed\'c4\'da\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+If e.KeyCode = Keys.Up Then\par
+    tbl.Position = tbl.Position - 1\par
+    e.Cancel = True\par
+ElseIf e.KeyCode = Keys.Down Then\par
+    tbl.Position = tbl.Position + 1\par
+    e.Cancel = True\par
+ElseIf e.KeyCode = Keys.Enter Then\par
+    If tbl.Current IsNot Nothing Then\par
+        e.Form.DropDownBox.Value = tbl.Current("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+    End If\par
+    e.Cancel = True\par
+    e.Form.DropDownBox.CloseDropDown()\par
+End If\par
+\par
+\cf2\'b1\'ed\'c4\'da\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_TextBox1_TextChanged\par
+\par
+\cf3 Dim txt As String = e.Form.Controls("TextBox1").Text\par
+Dim tbl As Table = Tables("\'b1\'ed\'c4\'da\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+If txt = "" Then\par
+    tbl.Filter = ""\par
+Else\par
+    txt = "'%" & txt & "%'"\par
+    tbl.Filter = "\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6 Like " & txt & " Or \'c1\'aa\'cf\'b5\'c8\'cb Like " & txt \par
+End If\par
+\par
+\cf2\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2_AfterClose\par
+\par
+\cf3 Tables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").Current.Reject()\par
+Tables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").AllowEdit = False\par
+\par
+\cf2\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2_AfterLoad\par
+\par
+\cf3 Tables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").AllowEdit=True\par
+\par
+\cf2\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2_btn_ok_Click\par
+\par
+\cf3 Tables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").Current.Save()\par
+e.Form.Close()\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_AfterClose\par
+\par
+\cf3 For Each r As Row In Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2")\par
+    r.Reject()\par
+Next \par
+\par
+For Each r As Row In Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1")\par
+    r.Reject()\par
+Next \par
+DataTables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae").Load()\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_AfterLoad\par
+\par
+\cf3 '\'c8\'e7\'b9\'fb\'ca\'c7\'d0\'c2\'d4\'f6\'b5\'c4\'a3\'ac\'d4\'f6\'bc\'d3\'d2\'bb\'b8\'f6\'b5\'a5\'be\'dd\par
+If Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'d7\'b4\'cc\'ac") = "\'d0\'c2\'d4\'f6" Then\par
+    'Dim r As Row = Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").AddNew\par
+    Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "dk" & Format(Date.Now, "yyyyMMddHHmmss")\par
+    Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").fill( "select \'c8\'d5\'c6\'da,\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5,\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6,dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae.\'d7\'b4\'cc\'ac,\'b7\'bd\'cf\'f2,\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb,\'c6\'b7\'c3\'fb,\'b5\'a5\'bc\'db,\'ca\'fd\'c1\'bf,\'bd\'f0\'b6\'ee,\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac from dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae left join dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed on dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae.\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5=dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed.\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5 where (\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac is null or \'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac ='') and  \'b7\'bd\'cf\'f2='\'bf\'aa\'c8\'eb'", "LiteInvoiceNew2024", True)\par
+    \par
+    'r("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+Else If Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'d7\'b4\'cc\'ac") = "\'b1\'e0\'bc\'ad" Then\par
+    Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").Fill("select * from \'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae where \'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'", "LiteInvoiceNew2024", False)\par
+    Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").fill( "select \'c8\'d5\'c6\'da,\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5,\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6,dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae.\'d7\'b4\'cc\'ac,\'b7\'bd\'cf\'f2,\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb,\'c6\'b7\'c3\'fb,\'b5\'a5\'bc\'db,\'ca\'fd\'c1\'bf,\'bd\'f0\'b6\'ee,\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac from dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae left join dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed on dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae.\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5=dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed.\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5 where \'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac like '%" & Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "%'", "LiteInvoiceNew2024", True)\par
+    For Each r As Row In Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").Rows\par
+        r.Checked = True\par
+    Next \par
+    'Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").Fill("select * from db where \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'", "lt", True)\par
+End If\par
+'Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").Filter = "[\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac] <> '\'d2\'d1\'b9\'b4\'d1\'a1'"\par
+\par
+Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").Cols("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5").DropForm = "\'b1\'ed\'c4\'da\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1"\par
+\par
+\par
+\par
+\par
+Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1")\par
+Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2")\par
+Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").DefaultRowHeight = 30\par
+Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").DefaultRowHeight = 30\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Button1_Click\par
+\par
+\cf3 Dim count As Integer\par
+count = 0\par
+\par
+For Each r As Row In Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").Rows\par
+    \par
+    If r.Checked Then\par
+        Dim y As Integer = Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").FindRow("\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb='" & r("\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb") & "'")\par
+        If y >= 0 Then\par
+            MessageBox.Show("\'d5\'e2\'d5\'c5\'b7\'a2\'c6\'b1\'d2\'d1\'be\'ad\'b9\'b4\'d1\'a1\'b5\'d6\'bf\'db")\par
+            Return\par
+        End If \par
+        count = count + 1\par
+        Dim dr As Row = Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").AddNew\par
+        dr("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+        dr("\'b5\'d6\'bf\'db\'c8\'d5\'c6\'da") = Date.Today\par
+        dr("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = r("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+        dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = r("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+        dr("\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb") = r("\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb")\par
+        dr("\'b7\'a2\'c6\'b1\'c8\'d5\'c6\'da") = r("\'c8\'d5\'c6\'da")\par
+        dr("\'c6\'b7\'c3\'fb") = r("\'c6\'b7\'c3\'fb")\par
+        dr("\'b5\'a5\'bc\'db") = r("\'b5\'a5\'bc\'db")\par
+        dr("\'ca\'fd\'c1\'bf") = r("\'ca\'fd\'c1\'bf")\par
+        dr("\'bd\'f0\'b6\'ee") = r("\'bd\'f0\'b6\'ee")       \par
+    End If \par
+Next\par
+If count < 1 Then\par
+    MessageBox.Show("\'c7\'eb\'cf\'c8\'b9\'b4\'d1\'a1\'c3\'bb\'b5\'d6\'bf\'db\'b5\'c4\'b7\'a2\'c6\'b1")\par
+End If\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Button2_Click\par
+\par
+\cf3 If Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").Current IsNot Nothing Then\par
+    Dim no As String = Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").Current("\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb")\par
+    Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").Current.Delete\par
+    For Each r As Row In Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").Rows\par
+        If r("\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb") = no Then\par
+            r.Checked = False\par
+            r("\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac") = ""\par
+        End If \par
+    Next\par
+End If\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Button3_Click\par
+\par
+\cf3 '\'d0\'de\'b8\'c4\'b7\'a2\'c6\'b1\'b5\'c4\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac\'ce\'aa\'d2\'d1\'b5\'d6\'bf\'db\par
+For Each r As Row In Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table1").Rows\par
+    If r.Checked Then\par
+        DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").SQLReplaceFor("\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac", Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "\'d2\'d1\'b5\'d6\'bf\'db", "\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb='" & r("\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb") & "'")\par
+    Else\par
+        DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").SQLReplaceFor("\'b5\'d6\'bf\'db\'d7\'b4\'cc\'ac", "", "\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb='" & r("\'b7\'a2\'c6\'b1\'ba\'c5\'c2\'eb") & "'")\par
+    End If\par
+Next\par
+\par
+Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").Save\par
+DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").Load\par
+DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").Load\par
+\par
+e.Form.Close\par
+\par
+\cf2\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Button4_Click\par
+\par
+\cf3 Dim r As Row = Tables("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae_Table2").AddNew\par
+r("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+r("\'b5\'d6\'bf\'db\'c8\'d5\'c6\'da")=Date.Today\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_AfterClose\par
+\par
+\cf3 DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").Load(False)\par
+DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").Load(False)\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_AfterLoad\par
+\par
+\cf3 Dim cmb1 As WinForm.ComboBox = e.Form.Controls("ComboBox1")\par
+Dim dp1 As WinForm.DateTimePicker = e.Form.Controls("DateTimePicker1")\par
+Dim db1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+Dim tb1 As WinForm.TextBox = e.Form.Controls("TextBox1")\par
+Dim tb2 As WinForm.TextBox = e.Form.Controls("TextBox2")\par
+Dim tb3 As WinForm.TextBox = e.Form.Controls("TextBox3")\par
+Dim tb4 As WinForm.TextBox = e.Form.Controls("TextBox4")\par
+Dim bt1 As WinForm.Button = e.Form.Controls("Button1")\par
+Dim bt2 As WinForm.Button = e.Form.Controls("Button2")\par
+Dim bt3 As WinForm.Button = e.Form.Controls("Button3")\par
+Dim table2 As WinForm.Table = e.Form.Controls("Table2")\par
+Dim table1 As WinForm.Table = e.Form.Controls("Table1")\par
+Dim bt4 As WinForm.Button = e.Form.Controls("Button4")\par
+Dim bt5 As WinForm.Button = e.Form.Controls("Button5")\par
+\par
+'Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").Fill("select * from dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed where \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'", "lt", False)\par
+\par
+'\'c9\'e8\'d6\'c3\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b5\'c4\'b9\'fd\'c2\'cb\'cc\'f5\'bc\'fe\'a3\'ac\'d6\'bb\'cf\'d4\'ca\'be\'b5\'b1\'c7\'b0\'b5\'c4\'bf\'aa\'c6\'b1\'b5\'a5\'b5\'c4\'c3\'f7\'cf\'b8\par
+Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").fill("select * from dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed where \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'", "LiteInvoiceNew2024", False)\par
+'\'c9\'e8\'d6\'c3\'c1\'bd\'b8\'f6\'b1\'ed\'b8\'f1\'b5\'c4\'d0\'d0\'b8\'df\par
+Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").DefaultRowHeight = 30\par
+'Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").DefaultRowHeight = 30\par
+'\'c9\'e8\'d6\'c3\'bf\'aa\'c6\'b1\'c3\'f7\'cf\'b8\'b1\'ed\'b5\'c4\'c6\'b7\'c3\'fb\'cf\'c2\'c0\'ad\'c1\'d0\'b1\'ed\par
+Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").Cols("\'c6\'b7\'c3\'fb").ComboList = DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").sqlGetComboListString("\'c6\'b7\'c3\'fb")\par
+'\'b5\'a5\'d7\'d3\'c8\'e7\'b9\'fb\'ca\'c7\'d0\'c2\'d4\'f6\'b5\'c4\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'d0\'c2\'d4\'f6" Then\par
+    tb2.Value = "\'d4\'a4\'bf\'aa"\par
+    dp1.Value=Date.Today\par
+    Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Fill("select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where \'d7\'b4\'cc\'ac is null and \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5 is null", "LiteInvoiceNew2024", False)\par
+    bt4.Enabled = False\par
+    bt5.Enabled = False\par
+    table2.Enabled = True\par
+    Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").AllowEdit = True\par
+End If\par
+\par
+'\'b5\'a5\'d7\'d3\'c8\'e7\'b9\'fb\'ca\'c7\'b1\'e0\'bc\'ad\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'b1\'e0\'bc\'ad" Then\par
+    '\'d7\'f3\'b2\'e0\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'bc\'d3\'d4\'d8\'ca\'fd\'be\'dd\par
+    Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Fill("select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'", "LiteInvoiceNew2024", False)\par
+    '\'cf\'c2\'b7\'bd\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b5\'c4\'c7\'e5\'b5\'a5\par
+    Dim r As DataRow = DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").sqlFind("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    If r IsNot Nothing Then\par
+        cmb1.Value = r("\'b7\'bd\'cf\'f2")\par
+        dp1.Value = r("\'c8\'d5\'c6\'da")\par
+        db1.Value = r("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+        tb1.Value = r("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+        tb2.Value = "\'bf\'aa\'c6\'b1\'bd\'f8\'d0\'d0\'d6\'d0"\par
+        tb4.Value=r("\'b1\'b8\'d7\'a2")\par
+    End If\par
+    table2.Enabled = True\par
+    bt5.Enabled = False\par
+    Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").AllowEdit = True\par
+    \par
+End If\par
+tb2.ForeColor = Color.Blue\par
+'\'b5\'a5\'d7\'d3\'c8\'e7\'b9\'fb\'d2\'d1\'cd\'ea\'b3\'c9\'a3\'ac\'d6\'bb\'ca\'c7\'b2\'e9\'bf\'b4\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'b2\'e9\'bf\'b4" Then\par
+    '\'d7\'f3\'b2\'e0\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'bc\'d3\'d4\'d8\'ca\'fd\'be\'dd\par
+    Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Fill("select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'", "LiteInvoiceNew2024", True)\par
+    \par
+    Dim dr As DataRow = DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").sqlFind("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    If dr IsNot Nothing Then\par
+        cmb1.Value = dr("\'b7\'bd\'cf\'f2")\par
+        dp1.Value = dr("\'c8\'d5\'c6\'da")\par
+        '\'d5\'e2\'c0\'ef\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5\'b5\'c4\'b1\'e4\'bb\'af\'bb\'e1\'b3\'f6\'b7\'a2dp1\'b5\'c4valuechange \'ca\'c2\'bc\'fe \'d0\'e8\'d2\'aa\'d7\'a2\'d2\'e2\par
+        db1.Value = dr("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+        tb1.Value = dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+        tb2.Value = dr("\'d7\'b4\'cc\'ac")\par
+        tb4.Value = dr("\'b1\'b8\'d7\'a2")\par
+    End If\par
+    '\'d2\'d1\'c9\'f3\'ba\'cb\'b5\'c4\'b5\'a5\'d7\'d3\'b2\'bb\'c4\'dc\'b1\'e0\'bc\'ad\par
+    tb2.ForeColor = Color.Red\par
+    cmb1.Enabled = False\par
+    dp1.Enabled = False\par
+    db1.Enabled = False\par
+    tb1.Enabled = False\par
+    '\'ce\'aa\'c1\'cb\'cf\'d4\'ca\'be\'d7\'d6\'cc\'e5\'ba\'ec\'c9\'ab\'b2\'bb\'c4\'dc\'bd\'fb\'d3\'c3\par
+    tb2.Enabled = False\par
+    tb3.Enabled = False\par
+    tb4.Enabled = False\par
+    bt1.Enabled = False\par
+    bt2.Enabled = False\par
+    bt3.Enabled = False\par
+    table2.Enabled = False\par
+    table1.Enabled=False\par
+    bt4.Enabled = False\par
+End If\par
+\par
+''\'c8\'e7\'b9\'fb\'b5\'b1\'c7\'b0\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'b5\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5=\'b5\'b1\'c7\'b0\'b5\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'a3\'ac\'c4\'c7\'c3\'b4\'b9\'b4\'d1\'a1\'c9\'cf\par
+'If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") <> "\'d0\'c2\'d4\'f6" Then\par
+'    For Each r As Row In Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Rows\par
+'        If r("\'d1\'a1\'d6\'d0") = "\'d1\'a1\'d6\'d0" Then\par
+'            r.Checked = True\par
+'        Else\par
+'            r.Checked = False \par
+'        End If\par
+'    Next\par
+'End If\par
+'\'bc\'c6\'cb\'e3\'bf\'aa\'c6\'b1\'b5\'c4\'d7\'dc\'bd\'f0\'b6\'ee\par
+Vars("\'bf\'aa\'c6\'b1\'d7\'dc\'bd\'f0\'b6\'ee") = Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").Compute("sum(\'bd\'f0\'b6\'ee)")\par
+\par
+'\'c9\'e8\'d6\'c3\'b4\'b0\'bf\'da\'c1\'bd\'b8\'f6\'b1\'ed\'b8\'f1\'b5\'c4\'d1\'f9\'ca\'bd\par
+Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1")\par
+Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2")\par
+Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").DefaultRowHeight = 35\par
+\par
+'\'c9\'e8\'bc\'c6\'ba\'cf\'bc\'c6\'c4\'a3\'ca\'bd\par
+Dim g As New SubtotalGroup '\'b6\'a8\'d2\'e5\'d2\'bb\'b8\'f6\'d0\'c2\'b5\'c4\'b7\'d6\'d7\'e9\par
+g.GroupOn = "\'d1\'a1\'d6\'d0" '\'b7\'d6\'d7\'e9\'c1\'d0\'ce\'aa\'bf\'cd\'bb\'a7\'c1\'d0\par
+g.TotalOn = "\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee" '\'b6\'d4\'ca\'fd\'c1\'bf\'ba\'cd\'bd\'f0\'b6\'ee\'bd\'f8\'d0\'d0\'cd\'b3\'bc\'c6\par
+With Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1")\par
+    .SubtotalGroups.Clear() '\'c7\'e5\'b3\'fd\'d4\'ad\'d3\'d0\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .SubtotalGroups.Add(g) '\'bc\'d3\'c8\'eb\'b8\'d5\'b8\'d5\'b6\'a8\'d2\'e5\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .Subtotal() '\'c9\'fa\'b3\'c9\'bb\'e3\'d7\'dc\'c4\'a3\'ca\'bd\par
+End With\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Button1_Click\par
+\par
+\cf3 Dim r As Row = Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").AddNew\par
+r("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Button2_Click\par
+\par
+\cf3 If Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").Current IsNot Nothing Then\par
+    Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").Current.Delete()\par
+End If\par
+'\'bc\'c6\'cb\'e3\'bf\'aa\'c6\'b1\'b5\'c4\'d7\'dc\'bd\'f0\'b6\'ee\par
+Vars("\'bf\'aa\'c6\'b1\'d7\'dc\'bd\'f0\'b6\'ee") = Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").Compute("sum(\'bd\'f0\'b6\'ee)")\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Button3_Click\par
+\par
+\cf3 Dim dp1 As WinForm.DateTimePicker = e.Form.Controls("DateTimePicker1")\par
+Dim db1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+Dim tb1 As WinForm.TextBox = e.Form.Controls("TextBox1")\par
+Dim tb2 As WinForm.TextBox = e.Form.Controls("TextBox2")\par
+Dim tb3 As WinForm.TextBox = e.Form.Controls("TextBox3")\par
+Dim cmb1 As WinForm.ComboBox = e.Form.Controls("ComboBox1")\par
+Dim tb4 As WinForm.TextBox = e.Form.Controls("TextBox4")\par
+\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'d0\'c2\'d4\'f6" Then\par
+    If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0") IsNot Nothing Then\par
+        Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0") ("\'b7\'bd\'cf\'f2") = cmb1.Value\par
+        Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0") ("\'c8\'d5\'c6\'da") = dp1.Value\par
+        Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0") ("\'d7\'b4\'cc\'ac") = tb2.Value\par
+        Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0") ("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = db1.Value\par
+        Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0") ("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = tb1.Value\par
+        Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0") ("\'b1\'b8\'d7\'a2") = tb4.Value\par
+        Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0").save()\par
+    End If\par
+    \par
+Else If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'b1\'e0\'bc\'ad" Then\par
+    Dim r As DataRow = DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").sqlFind("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    r("\'b7\'bd\'cf\'f2") = cmb1.Value\par
+    r("\'c8\'d5\'c6\'da") = dp1.Value\par
+    r("\'d7\'b4\'cc\'ac") = tb2.Value\par
+    r ("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = db1.Value\par
+    r("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = tb1.Value\par
+    r("\'b1\'b8\'d7\'a2") = tb4.Value\par
+    r.Save\par
+End If\par
+\par
+'\'c8\'e7\'b9\'fb\'b9\'b4\'d1\'a1\'c1\'cb \'c4\'c7\'c3\'b4\'b8\'b3\'d3\'e8\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'a3\'ac\'bb\'f2\'d5\'df\'c3\'bb\'d3\'d0\'b9\'b4\'d1\'a1\'b5\'c4\'be\'cd\'c7\'e5\'b3\'fd\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\par
+For Each r As Row In Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Rows\par
+    If r.Checked = True Then\par
+        r("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+        r("\'d1\'a1\'d6\'d0") = "\'d1\'a1\'d6\'d0"\par
+    Else\par
+        r("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = ""\par
+        r("\'d1\'a1\'d6\'d0") = ""\par
+    End If\par
+    r.Save()\par
+Next\par
+\par
+\par
+'\'b1\'e0\'bc\'ad\'ba\'f3\'d6\'d8\'d0\'c2\'bc\'d3\'d4\'d8\'ca\'fd\'be\'dd\par
+DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").load()\par
+DataTables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table2").load()\par
+DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").Load()\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Load()\par
+If Forms("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da").Opened Then\par
+    DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1").Load()\par
+    DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2").Load()\par
+End If \par
+e.Form.Close\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Button4_Click\par
+\par
+\cf3 Dim dp1 As WinForm.DateTimePicker = e.Form.Controls("DateTimePicker1")\par
+Dim db1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+Dim tb1 As WinForm.TextBox = e.Form.Controls("TextBox1")\par
+Dim tb2 As WinForm.TextBox = e.Form.Controls("TextBox2")\par
+Dim tb3 As WinForm.TextBox = e.Form.Controls("TextBox3")\par
+Dim cmb1 As WinForm.ComboBox = e.Form.Controls("ComboBox1")\par
+Dim tb4 As WinForm.TextBox = e.Form.Controls("TextBox4")\par
+\par
+'\'c9\'f3\'ba\'cb\'d2\'b5\'ce\'f1\'ca\'e1\'c0\'ed\par
+'1.\'c8\'e7\'b9\'fb\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'b4\'f3\'d3\'da\'b9\'b4\'d1\'a1\'b5\'c4\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'a3\'ba\par
+'        \'d2\'f2\'ce\'aa\'b6\'e0\'bf\'aa\'b5\'c4\'bd\'f0\'b6\'ee\'d0\'e8\'d2\'aa\'b0\'d1\'c7\'ae\'b2\'b9\'bd\'f8\'c0\'b4, \'cb\'f9\'d2\'d4\'d0\'e8\'d2\'aa\'d4\'da\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'d2\'b5\'ce\'f1\'d6\'d0\'d0\'c2\'d4\'f6\'d2\'bb\'d5\'c5\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'b5\'a5\'be\'dd\par
+'        \'d2\'b2\'d3\'d0\'bf\'c9\'c4\'dc\'b6\'e0\'bf\'aa\'b5\'c4\'bd\'f0\'b6\'ee \'bc\'c7\'cf\'d6\'bd\'f0 \'bc\'c7\'bb\'e3\'bf\'ee\par
+'        1.\'bc\'c7\'cf\'d6\'bd\'f0\par
+'            \'d0\'c2\'d4\'f6\'d2\'bb\'d5\'c5\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5, \'c8\'e7\'b9\'fb\'b7\'a2\'c6\'b1\'ca\'c7\'bf\'aa\'b3\'f6\'b5\'c4, \'c4\'c7\'c3\'b4\'b6\'e0\'bf\'aa\'b5\'c4\'bd\'f0\'b6\'ee\'bc\'c7\'ce\'aa\'d3\'a6\'ca\'d5, \'c8\'e7\'b9\'fb\'b7\'a2\'c6\'b1\'ca\'c7\'bf\'aa\'c8\'eb\'b5\'c4, \'c4\'c7\'c3\'b4\'b6\'e0\'bf\'aa\'b5\'c4\'bd\'f0\'b6\'ee\'bc\'c7\'ce\'aa\'d3\'a6\'b8\'b6, \'b1\'b8\'d7\'a2\'b2\'ee\'b6\'ee - \'cf\'d6\'bd\'f0, \'cf\'d6\'bd\'f0\'b2\'bf\'b7\'d6(\'d4\'da\'ca\'d5\'d5\'cb\'d6\'d0)\'b2\'bb\'d0\'e8\'d2\'aa\'d4\'da\'c7\'ae\'bf\'ee\'d6\'d0\'bc\'c7\'ce\'aa\'d3\'a6\'ca\'d5\'bf\'ee\par
+'        2.\'bc\'c7\'bb\'e3\'bf\'ee\par
+'            \'d0\'c2\'d4\'f6\'d2\'bb\'d5\'c5\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5, \'c8\'e7\'b9\'fb\'b7\'a2\'c6\'b1\'ca\'c7\'bf\'aa\'b3\'f6\'b5\'c4, \'c4\'c7\'c3\'b4\'b6\'e0\'bf\'aa\'b5\'c4\'bd\'f0\'b6\'ee\'bc\'c7\'ce\'aa\'d3\'a6\'ca\'d5, \'c8\'e7\'b9\'fb\'b7\'a2\'c6\'b1\'ca\'c7\'bf\'aa\'c8\'eb\'b5\'c4, \'c4\'c7\'c3\'b4\'b6\'e0\'bf\'aa\'b5\'c4\'bd\'f0\'b6\'ee\'bc\'c7\'ce\'aa\'d3\'a6\'b8\'b6, \'b1\'b8\'d7\'a2\'b2\'ee\'b6\'ee, \'cf\'d6\'bd\'f0\'b2\'bf\'b7\'d6(\'d4\'da\'ca\'d5\'d5\'cb\'d6\'d0)\'b2\'bb\'d0\'e8\'d2\'aa\'d4\'da\'c7\'ae\'bf\'ee\'d6\'d0\'bc\'c7\'ce\'aa\'d3\'a6\'ca\'d5\'bf\'ee\par
+'2.\'c8\'e7\'b9\'fb\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'d0\'a1\'d3\'da\'b9\'b4\'d1\'a1\'b5\'c4\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'a3\'ba\par
+'        \'d2\'f2\'ce\'aa\'bf\'aa\'cd\'ea\'b7\'a2\'c6\'b1\'b5\'c4\'ca\'b1\'ba\'f2\'bb\'b9\'d3\'d0\'c7\'ae\'b6\'e0\'d3\'e0, \'cb\'f9\'d2\'d4\'d2\'b2\'d0\'e8\'d2\'aa\'d4\'da\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'d2\'b5\'ce\'f1\'d6\'d0\'d0\'c2\'d4\'f6\'d2\'bb\'d5\'c5\'c1\'f7\'cb\'ae\'b5\'a5, \'bc\'c7\'ce\'aa\'b2\'ee\'b6\'ee\par
+'        \'d0\'c2\'d4\'f6\'d2\'bb\'d5\'c5\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5, \'b7\'a2\'c6\'b1\'ca\'c7\'bf\'aa\'b3\'f6, \'c4\'c7\'c3\'b4\'bc\'c7\'ce\'aa\'bb\'e3\'c8\'eb, \'c8\'e7\'b9\'fb\'b7\'a2\'c6\'b1\'ca\'c7\'bf\'aa\'c8\'eb, \'c4\'c7\'c3\'b4\'bc\'c7\'ce\'aa\'bb\'e3\'b3\'f6\par
+\par
+\par
+\par
+'\'bc\'c6\'cb\'e3\'b2\'ee\'bc\'db\par
+Dim \'bf\'aa\'c6\'b1\'d3\'eb\'bd\'f0\'b6\'ee\'b5\'c4\'b2\'ee\'bc\'db As Double\par
+Dim \'d1\'a1\'d6\'d0\'b5\'c4\'bd\'f0\'b6\'ee As Double = Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Compute("sum(\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee)", "\'d1\'a1\'d6\'d0='\'d1\'a1\'d6\'d0'")\par
+\'bf\'aa\'c6\'b1\'d3\'eb\'bd\'f0\'b6\'ee\'b5\'c4\'b2\'ee\'bc\'db = Vars("\'bf\'aa\'c6\'b1\'d7\'dc\'bd\'f0\'b6\'ee") - \'d1\'a1\'d6\'d0\'b5\'c4\'bd\'f0\'b6\'ee\par
+\par
+\par
+'1.\'c8\'e7\'b9\'fb\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'b4\'f3\'d3\'da\'b9\'b4\'d1\'a1\'b5\'c4\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'a3\'ba\par
+If \'bf\'aa\'c6\'b1\'d3\'eb\'bd\'f0\'b6\'ee\'b5\'c4\'b2\'ee\'bc\'db > 0 Then\par
+    Dim result As DialogResult = MessageBox.Show("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'b4\'f3\'d3\'da\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'a3\'ac\'ca\'c7\'b7\'f1\'bc\'cc\'d0\'f8", "\'cc\'e1\'ca\'be", MessageBoxButtons.YesNo)\par
+    '\'c8\'e7\'b9\'fb\'bc\'cc\'d0\'f8\par
+    If result = DialogResult.Yes Then\par
+        Dim goon As DialogResult = MessageBox.Show("\'ca\'c7\'b7\'f1\'b0\'d1\'b2\'ee\'b6\'ee\'bc\'c7\'c2\'bc\'ce\'aa\'cf\'d6\'bd\'f0", "\'cc\'e1\'ca\'be", MessageBoxButtons.YesNo)\par
+        If goon = DialogResult.Yes Then\par
+            '1.\'bc\'c7\'cf\'d6\'bd\'f0\par
+            Dim dr As DataRow = DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").AddNew()\par
+            dr("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+            dr("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "HK" & Format(Date.Now, "yyyyMMddHHmmss")\par
+            dr("\'c8\'d5\'c6\'da") = Date.Today()\par
+            dr("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = db1.Value\par
+            dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = tb1.Value\par
+            dr("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1"\par
+            If cmb1.Value = "\'bf\'aa\'c8\'eb" Then\par
+                dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'d3\'a6\'b8\'b6"\par
+            Else\par
+                dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'d3\'a6\'ca\'d5" \par
+            End If\par
+            dr("\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee") = \'bf\'aa\'c6\'b1\'d3\'eb\'bd\'f0\'b6\'ee\'b5\'c4\'b2\'ee\'bc\'db \par
+            dr("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'b2\'ee\'b6\'ee\'cf\'d6\'bd\'f0"\par
+            dr("\'be\'ad\'ca\'d6\'c8\'cb") = User.Name\par
+            dr("\'d1\'a1\'d6\'d0") = "\'d1\'a1\'d6\'d0"\par
+            dr("\'b1\'b8\'d7\'a2") = "\'bf\'aa\'c6\'b1" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "\'b5\'c4\'d3\'a6\'ca\'d5\'bf\'ee~~~\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'b4\'f3\'d3\'da\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'a3\'a8\'bc\'c7\'c2\'bc\'ce\'aa\'cf\'d6\'bd\'f0\'a3\'a9"\par
+            dr.Save()\par
+        Else\par
+            '2.\'bc\'c7\'bb\'e3\'bf\'ee\par
+            Dim dr As DataRow = DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").AddNew()\par
+            dr("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+            dr("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "HK" & Format(Date.Now, "yyyyMMddHHmmss")\par
+            dr("\'c8\'d5\'c6\'da") = Date.Today()\par
+            dr("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = db1.Value\par
+            dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = tb1.Value\par
+            dr("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1"\par
+            If cmb1.Value = "\'bf\'aa\'c8\'eb" Then\par
+                dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'d3\'a6\'b8\'b6"\par
+            Else\par
+                dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'d3\'a6\'ca\'d5" \par
+            End If\par
+            dr("\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee") = \'bf\'aa\'c6\'b1\'d3\'eb\'bd\'f0\'b6\'ee\'b5\'c4\'b2\'ee\'bc\'db\par
+            dr("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'b2\'ee\'b6\'ee\'bb\'e3\'bf\'ee"\par
+            dr("\'be\'ad\'ca\'d6\'c8\'cb") = User.Name\par
+            dr("\'d1\'a1\'d6\'d0") = "\'d1\'a1\'d6\'d0"\par
+            dr("\'b1\'b8\'d7\'a2") = "\'bf\'aa\'c6\'b1" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "\'b5\'c4\'d3\'a6\'ca\'d5\'bf\'ee~~~\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'b4\'f3\'d3\'da\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee"\par
+            dr.Save()\par
+        End If\par
+    Else\par
+        Return\par
+    End If\par
+    \par
+    '2.\'c8\'e7\'b9\'fb\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'d0\'a1\'d3\'da\'b9\'b4\'d1\'a1\'b5\'c4\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'a3\'ba  \par
+Else If \'bf\'aa\'c6\'b1\'d3\'eb\'bd\'f0\'b6\'ee\'b5\'c4\'b2\'ee\'bc\'db < 0 Then\par
+    Dim result As DialogResult = MessageBox.Show("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'d0\'a1\'d3\'da\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'a3\'ac\'ca\'c7\'b7\'f1\'bc\'cc\'d0\'f8", "\'cc\'e1\'ca\'be", MessageBoxButtons.YesNo)\par
+    '\'c8\'e7\'b9\'fb\'bc\'cc\'d0\'f8\par
+    If result = DialogResult.Yes Then\par
+        Dim dr As DataRow = DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").AddNew()\par
+        dr("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "HK" & Format(Date.Now, "yyyyMMddHHmmss")\par
+        dr("\'c8\'d5\'c6\'da") = Date.Today()\par
+        dr("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = db1.Value\par
+        dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = tb1.Value\par
+        If cmb1.Value = "\'bf\'aa\'c8\'eb" Then\par
+            dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'bb\'e3\'b3\'f6"\par
+        Else\par
+            dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'bb\'e3\'c8\'eb" \par
+        End If\par
+        dr("\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee") = \'bf\'aa\'c6\'b1\'d3\'eb\'bd\'f0\'b6\'ee\'b5\'c4\'b2\'ee\'bc\'db * -1\par
+        dr("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'b2\'ee\'b6\'ee"\par
+        dr("\'be\'ad\'ca\'d6\'c8\'cb") = User.Name\par
+        dr("\'b1\'b8\'d7\'a2") = "\'bf\'aa\'c6\'b1" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "\'b5\'c4\'b2\'ee\'b6\'ee~~~\'bf\'aa\'c6\'b1\'bd\'f0\'b6\'ee\'d0\'a1\'d3\'da\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee"\par
+        dr.Save()\par
+    Else\par
+        Return\par
+    End If\par
+End If\par
+'\'d0\'de\'b8\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'c4\'b5\'a5\'be\'dd\'b1\'e4\'ce\'aa\'c9\'f3\'ba\'cb\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'b1\'e0\'bc\'ad" Then\par
+    Dim r As DataRow = DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").sqlFind("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    r("\'b7\'bd\'cf\'f2") = cmb1.Value\par
+    r("\'c8\'d5\'c6\'da") = dp1.Value\par
+    r("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'c9\'f3\'ba\'cb"\par
+    r ("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = db1.Value\par
+    r("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = tb1.Value\par
+    r("\'b1\'b8\'d7\'a2") = tb4.Value\par
+    r.Save()\par
+End If\par
+\par
+'\'d0\'de\'b8\'c4\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'c4\'b5\'a5\'be\'dd\'b1\'e4\'ce\'aa\'c9\'f3\'ba\'cb\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").sqlReplaceFor("\'d7\'b4\'cc\'ac", "\'d2\'d1\'b3\'f6\'c6\'b1", "\'d1\'a1\'d6\'d0 = '\'d1\'a1\'d6\'d0' and \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+'DataTables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").ReplaceFor("\'d7\'b4\'cc\'ac", "\'d2\'d1\'b3\'f6\'c6\'b1", "\'d1\'a1\'d6\'d0 = '\'d1\'a1\'d6\'d0' and \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+'\'d5\'e2\'b8\'f6\'c3\'bb\'d1\'a1\'d6\'d0\'b5\'c4\'d0\'d0\'bf\'c9\'c4\'dc\'ca\'c7\'d6\'ae\'c7\'b0\'d1\'a1\'d6\'d0\'b9\'fd,\'ba\'f3\'c0\'b4\'c8\'a5\'b3\'fd\'b9\'b4\'d1\'a1\'c1\'cb,\'cb\'f9\'d2\'d4\'d2\'aa\'c7\'e5\'c0\'ed\'d2\'bb\'cf\'c2\'d7\'b4\'cc\'ac\'ba\'cd\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").sqlReplaceFor("\'d7\'b4\'cc\'ac", "", "\'d1\'a1\'d6\'d0 ='' and \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").sqlReplaceFor("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5", "", "\'d1\'a1\'d6\'d0 ='' and \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").sqlReplaceFor("\'d7\'b4\'cc\'ac", "\'d2\'d1\'b3\'f6\'c6\'b1", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+\par
+DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").load()\par
+DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").load()\par
+DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").Load()\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Load()\par
+If Forms("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da").Opened Then\par
+    Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1").DataTable.Load()\par
+    Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2").DataTable.Load()\par
+End If\par
+e.Form.Close()\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Button5_Click\par
+\par
+\cf3 Dim dp1 As WinForm.DateTimePicker = e.Form.Controls("DateTimePicker1")\par
+Dim db1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+Dim tb1 As WinForm.TextBox = e.Form.Controls("TextBox1")\par
+Dim tb2 As WinForm.TextBox = e.Form.Controls("TextBox2")\par
+Dim tb3 As WinForm.TextBox = e.Form.Controls("TextBox3")\par
+Dim cmb1 As WinForm.ComboBox = e.Form.Controls("ComboBox1")\par
+Dim tb4 As WinForm.TextBox = e.Form.Controls("TextBox4")\par
+'\'b7\'b4\'c9\'f3\'ba\'cb\'b5\'c4\'d2\'b5\'ce\'f1\'ca\'e1\'c0\'ed\par
+'1.\'d0\'de\'b8\'c4\'d2\'d1\'be\'ad\'c9\'f3\'ba\'cb\'b5\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\par
+'2.\'d0\'de\'b8\'c4\'d2\'d1\'be\'ad\'b3\'f6\'c6\'b1\'b5\'c4\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b1\'ed\par
+'    \'c7\'e5\'c0\'ed\'d7\'b4\'cc\'ac\'ba\'cd\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'ce\'aa\'bf\'d5\par
+'    \'c8\'e7\'b9\'fb\'bf\'aa\'c6\'b1\'b9\'fd\'b3\'cc\'d6\'d0\'b2\'fa\'c9\'fa\'c1\'cb\'b2\'ee\'b6\'ee\'b5\'c4\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5, \'c9\'be\'b3\'fd\'d6\'ae\par
+'        \'d2\'f2\'ce\'aa\'c8\'e7\'b9\'fb\'bd\'f0\'b6\'ee\'b1\'c8\'bf\'aa\'b5\'c4\'b7\'a2\'c6\'b1\'b6\'e0, \'c4\'c7\'c3\'b4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'ca\'c7\'bf\'d5\'b0\'d7\'b5\'c4, \'cb\'f9\'d2\'d4\'c9\'be\'b3\'fd\'ca\'b1\'b5\'c4\'d2\'c0\'be\'dd\'d4\'da\'b1\'b8\'d7\'a2\'b5\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5 \'ba\'cd \'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd\'ce\'aa \'b2\'ee\'b6\'ee\'d6\'d0 \'c8\'a5\'bd\'e7\'b6\'a8\par
+\par
+\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'b2\'e9\'bf\'b4" Then\par
+    '\'d0\'de\'b8\'c4\'b5\'b1\'c7\'b0\'b5\'c4\'d7\'b4\'cc\'ac\'ce\'aa\'bf\'aa\'c6\'b1\'bd\'f8\'d0\'d0\'d6\'d0\par
+    Dim r As DataRow = DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").SQLFind("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    r("\'d7\'b4\'cc\'ac") = "\'bf\'aa\'c6\'b1\'bd\'f8\'d0\'d0\'d6\'d0"\par
+    r.Save()\par
+    '\'c9\'be\'b3\'fd\'b2\'fa\'c9\'fa\'b5\'c4\'b2\'ee\'b6\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\par
+    DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").sqlDeleteFor("\'b1\'b8\'d7\'a2 like '%" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "%' and \'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd like '%\'b2\'ee\'b6\'ee%'")\par
+    '\'c7\'e5\'c0\'ed\'d7\'b4\'cc\'ac\'ba\'cd\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\par
+    DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").sqlReplaceFor("\'d7\'b4\'cc\'ac", "", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").sqlReplaceFor("\'d7\'b4\'cc\'ac", "", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    'DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").ReplaceFor("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5", "", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    'DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").ReplaceFor("\'d1\'a1\'d6\'d0", "", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    tb2.ForeColor = Color.Blue\par
+End If\par
+\par
+'\'b1\'e0\'bc\'ad\'ba\'f3\'d6\'d8\'d0\'c2\'bc\'d3\'d4\'d8\'ca\'fd\'be\'dd\par
+DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").load()\par
+DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").load()\par
+DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").Load()\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Load()\par
+If Forms("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da").Opened Then\par
+    Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1").DataTable.Load()\par
+    Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2").DataTable.Load()\par
+End If \par
+e.Form.Close()\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_DropBox1_KeyDown\par
+\par
+\cf3 Dim drp As WinForm.DropDownBox = e.sender\par
+If drp.DroppedDown Then '\'c8\'e7\'b9\'fb\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\'d2\'d1\'be\'ad\'b4\'f2\'bf\'aa\par
+    Dim tbl As Table = Tables("\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+    If e.KeyCode = Keys.Up Then '\'c8\'e7\'b9\'fb\'b0\'b4\'cf\'c2\'b5\'c4\'ca\'c7\'c9\'cf\'bc\'fd\'cd\'b7\'b0\'b4\'bc\'fc\par
+        tbl.Position = tbl.Position - 1 '\'cf\'f2\'c9\'cf\'d2\'c6\'b6\'af\'d2\'bb\'d0\'d0\par
+        e.Cancel = True\par
+    ElseIf e.KeyCode = Keys.Down Then '\'c8\'e7\'b9\'fb\'b0\'b4\'cf\'c2\'b5\'c4\'ca\'c7\'cf\'c2\'bc\'fd\'cd\'b7\'b0\'b4\'bc\'fc\par
+        tbl.Position = tbl.Position + 1 '\'cf\'f2\'cf\'c2\'d2\'c6\'b6\'af\'d2\'bb\'d0\'d0\par
+        e.Cancel = True\par
+    End If\par
+End If\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_DropBox1_KeyPress\par
+\par
+\cf3 Dim drp As WinForm.DropDownBox = e.Sender\par
+If drp.DroppedDown = False Then'\'c8\'e7\'b9\'fb\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\'c3\'bb\'d3\'d0\'b4\'f2\'bf\'aa\par
+    drp.OpenDropDown() '\'b4\'f2\'bf\'aa\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\par
+End If\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_DropBox1_TextChanged\par
+\par
+\cf3 Dim drp As WinForm.DropDownBox = e.sender\par
+If drp.DroppedDown Then '\'c8\'e7\'b9\'fb\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\'d2\'d1\'be\'ad\'b4\'f2\'bf\'aa\par
+    Dim tbl As Table = Tables("\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+    If drp.Text = "" Then '\'c8\'e7\'b9\'fb\'c4\'da\'c8\'dd\'ce\'aa\'bf\'d5\par
+        tbl.Filter = "" '\'cf\'d4\'ca\'be\'cb\'f9\'d3\'d0\'bf\'cd\'bb\'a7\par
+    Else '\'b7\'f1\'d4\'f2\'b8\'f9\'be\'dd\'ca\'e4\'c8\'eb\'c4\'da\'c8\'dd\'bd\'f8\'d0\'d0\'c4\'a3\'ba\'fd\'c9\'b8\'d1\'a1\par
+        Dim txt As String = "'%" & drp.Text & "%'"\par
+        tbl.Filter = "\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6 Like " & txt & " Or \'c1\'aa\'cf\'b5\'c8\'cb Like " & txt \par
+    End If\par
+End If\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_DropBox1_Validating\par
+\par
+\cf3 Dim drp As WinForm.DropDownBox = e.sender\par
+If drp.DroppedDown Then '\'c8\'e7\'b9\'fb\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\'d2\'d1\'be\'ad\'b4\'f2\'bf\'aa \par
+    drp.CloseDropdown(False) '\'b9\'d8\'b1\'d5\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\par
+End If\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_DropBox1_ValueChanged\par
+\par
+\cf3 '\'c8\'e7\'b9\'fb\'b5\'b1\'c7\'b0\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'b5\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5=\'b5\'b1\'c7\'b0\'b5\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'a3\'ac\'c4\'c7\'c3\'b4\'b9\'b4\'d1\'a1\'c9\'cf -----\'d5\'e2\'d2\'bb\'b6\'ce\'c4\'bf\'b5\'c4\'ca\'c7\'ce\'aa\'c1\'cb \'d7\'b4\'cc\'ac\'ca\'c7\'b2\'e9\'bf\'b4\'ca\'b1\'b1\'ed\'b8\'f1\'c7\'b0\'c3\'e6\'b5\'c4\'b9\'b4\'d1\'a1\'d2\'b2\'d3\'d0\'d0\'a7\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") <> "\'d0\'c2\'d4\'f6" Then\par
+    For Each r As Row In Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Rows\par
+        If r("\'d1\'a1\'d6\'d0") = "\'d1\'a1\'d6\'d0" Then\par
+            r.Checked = True\par
+        Else\par
+            r.Checked = False \par
+        End If\par
+    Next\par
+End If\par
+\par
+\par
+'\'b1\'dc\'c3\'e2\'b2\'e9\'bf\'b4\'ca\'b1\'b3\'f6\'b7\'a2dp1\'b5\'c4valuechange\'ca\'c2\'bc\'fe\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'b2\'e9\'bf\'b4" Then\par
+    Return \par
+End If \par
+\par
+Dim dp1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+Dim tb1 As WinForm.TextBox = e.Form.Controls("TextBox1")\par
+Dim dr As DataRow = DataTables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").Find("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5='" & dp1.Value & "'")\par
+If dr IsNot Nothing Then\par
+    tb1.Value = dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+    '\'c9\'be\'d1\'a1\'c3\'bb\'d3\'d0\'bf\'aa\'c6\'b1\'b5\'c4\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\par
+    Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Fill("select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where \'d7\'b4\'cc\'ac is null and (\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "' or \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5 is null) and \'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5='" & dp1.Value & "'", "LiteInvoiceNew2024", False)\par
+Else\par
+    '\'c7\'e5\'b3\'fd\'c9\'b8\'d1\'a1\'a3\'ac\'d5\'d2\'b3\'f6\'cb\'f9\'d3\'d0\'c3\'bb\'d3\'d0\'bf\'aa\'c6\'b1\'b5\'c4\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'d7\'d3\par
+    Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Fill("select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where \'d7\'b4\'cc\'ac is null and \'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5 is null", "LiteInvoiceNew2024", False)\par
+    '\'bc\'d3\'d4\'d8\'ca\'fd\'be\'dd\'ba\'f3\'d6\'d8\'d0\'c2\'c9\'e8\'d6\'c3\'d2\'bb\'cf\'c2\'b1\'ed\'b8\'f1\'c1\'d0\'bf\'ed\'d1\'f9\'ca\'bd\par
+    Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1")\par
+    '\'c7\'e5\'b3\'fd\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6\par
+    tb1.Value = ""\par
+    '\'c9\'be\'b3\'fd\'bf\'aa\'c6\'b1\'c3\'f7\'cf\'b8\'b5\'c4\'cf\'c2\'b1\'ed\par
+    DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").DeleteFor("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & Vars("\'b5\'b1\'c7\'b0\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "'")\par
+    '\'d6\'d8\'d0\'c2\'bc\'c6\'cb\'e3\'d7\'dc\'bd\'f0\'b6\'ee\par
+    Vars("\'bf\'aa\'c6\'b1\'d7\'dc\'bd\'f0\'b6\'ee") = Tables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").Compute("sum(\'bd\'f0\'b6\'ee)")\par
+End If\par
+\par
+\par
+\par
+'\'c8\'e7\'b9\'fb\'b5\'b1\'c7\'b0\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'b5\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5=\'b5\'b1\'c7\'b0\'b5\'c4\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\'a3\'ac\'c4\'c7\'c3\'b4\'b9\'b4\'d1\'a1\'c9\'cf  -----\'d5\'e2\'d2\'bb\'b6\'ce\'c4\'bf\'b5\'c4\'ca\'c7\'ce\'aa\'c1\'cb\'b1\'dc\'c3\'e2\'b1\'e0\'bc\'ad\'ca\'b1\'d6\'b4\'d0\'d0\'c9\'cf\'c3\'e6\'b5\'c4\'bc\'d3\'d4\'d8\'ba\'f3 \'b9\'b4\'d1\'a1\'ca\'a7\'d0\'a7\par
+If Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") <> "\'d0\'c2\'d4\'f6" Then\par
+    For Each r As Row In Tables("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad_Table1").Rows\par
+        If r("\'d1\'a1\'d6\'d0") = "\'d1\'a1\'d6\'d0" Then\par
+            r.Checked = True\par
+        Else\par
+            r.Checked = False \par
+        End If\par
+    Next\par
+End If\par
+\par
+\cf2\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_AfterLoad\par
+\par
+\cf3 Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1").DefaultRowHeight = 30\par
+Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2").DefaultRowHeight = 30\par
+Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1")\par
+Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2")\par
+\par
+'\'c9\'e8\'d6\'c3Table1\'b5\'c4\'b7\'d6\'d7\'e9\'cd\'b3\'bc\'c6\par
+Dim t As New SubtotalGroup '\'b6\'a8\'d2\'e5\'d2\'bb\'b8\'f6\'d0\'c2\'b5\'c4\'b7\'d6\'d7\'e9\par
+t.GroupOn = "\'c6\'b7\'c3\'fb" '\'b7\'d6\'d7\'e9\'c1\'d0\'ce\'aa\'bf\'cd\'bb\'a7\'c1\'d0\par
+t.TotalOn = "\'bd\'f0\'b6\'ee" '\'b6\'d4\'ca\'fd\'c1\'bf\'ba\'cd\'bd\'f0\'b6\'ee\'bd\'f8\'d0\'d0\'cd\'b3\'bc\'c6\par
+With Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1")\par
+    .SubtotalGroups.Clear() '\'c7\'e5\'b3\'fd\'d4\'ad\'d3\'d0\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .SubtotalGroups.Add(t) '\'bc\'d3\'c8\'eb\'b8\'d5\'b8\'d5\'b6\'a8\'d2\'e5\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .Subtotal() '\'c9\'fa\'b3\'c9\'bb\'e3\'d7\'dc\'c4\'a3\'ca\'bd\par
+End With\par
+\par
+Dim g As New SubtotalGroup '\'b6\'a8\'d2\'e5\'d2\'bb\'b8\'f6\'d0\'c2\'b5\'c4\'b7\'d6\'d7\'e9\par
+g.GroupOn = "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5" '\'b7\'d6\'d7\'e9\'c1\'d0\'ce\'aa\'bf\'cd\'bb\'a7\'c1\'d0\par
+g.TotalOn = "\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee" '\'b6\'d4\'ca\'fd\'c1\'bf\'ba\'cd\'bd\'f0\'b6\'ee\'bd\'f8\'d0\'d0\'cd\'b3\'bc\'c6\par
+With Tables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2")\par
+    .SubtotalGroups.Clear() '\'c7\'e5\'b3\'fd\'d4\'ad\'d3\'d0\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .SubtotalGroups.Add(g) '\'bc\'d3\'c8\'eb\'b8\'d5\'b8\'d5\'b6\'a8\'d2\'e5\'b5\'c4\'b7\'d6\'d7\'e9\par
+    .Subtotal() '\'c9\'fa\'b3\'c9\'bb\'e3\'d7\'dc\'c4\'a3\'ca\'bd\par
+End With\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'a3\'a8\'b8\'b1\'a3\'a9_AfterLoad\par
+\par
+\cf3 Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'a3\'a8\'b8\'b1\'a3\'a9_Table1").DefaultRowHeight=30\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_AfterClose\par
+\par
+\cf3 Tables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Current.Reject()\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_AfterLoad\par
+\par
+\cf3 Dim cb2 As WinForm.ComboBox = e.Form.Controls("ComboBox2")\par
+Dim cb3 As WinForm.ComboBox = e.Form.Controls("ComboBox3")\par
+Dim dp1 As WinForm.DateTimePicker = e.Form.Controls("DateTimePicker1")\par
+Dim db1 As WinForm.DropDownBox = e.Form.Controls("DropBox1")\par
+Dim nb1 As WinForm.NumericComboBox = e.Form.Controls("NumericComboBox1")\par
+Dim tb As WinForm.Table = e.Form.Controls("Table1")\par
+Dim tb1 As WinForm.TextBox = e.Form.Controls("TextBox1")\par
+\par
+\par
+'\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'d2\'b5\'ce\'f1\'ca\'e1\'c0\'ed\'a3\'ba\par
+'1.\'d0\'c2\'d4\'f6\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'ca\'b1\'a3\'ba\par
+'    \'d7\'f3\'b2\'e0\'b1\'ed\'b8\'f1\'cf\'d4\'ca\'be\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'b5\'c4\'c1\'d0\'b1\'ed\par
+\par
+'2.\'b1\'e0\'bc\'ad\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'ca\'b1\'a3\'ba\par
+'    1.\'d7\'f3\'b2\'e0\'b1\'ed\'b8\'f1\'cf\'d4\'ca\'be\'b5\'b1\'c7\'b0\'b5\'a5\'ce\'bb\'b6\'d4\'d3\'a6\'b5\'c4\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'c1\'d0\'b1\'ed, \'bf\'c9\'b1\'e0\'bc\'ad\par
+'    2.\'b1\'a3\'b4\'e6\'ca\'b1\'a3\'ba\par
+'        \'c8\'e7\'b9\'fb\'b5\'b1\'c7\'b0\'bd\'f0\'b6\'ee\'b4\'f3\'d3\'da\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'bd\'f0\'b6\'ee, \'c4\'c7\'c3\'b4\'b2\'fa\'c9\'fa\'d0\'c2\'b5\'c4\'bb\'e3\'c8\'eb / \'bb\'e3\'b3\'f6\'b5\'c4\'c1\'f7\'cb\'ae, \'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd\'ca\'c7\'b2\'ee\'b6\'ee, \'b1\'b8\'d7\'a2\'b5\'a5\'ba\'c5 + "\'b6\'e0\'d3\'e0\'b2\'ee\'b6\'ee"\par
+'        \'c8\'e7\'b9\'fb\'b5\'b1\'c7\'b0\'bd\'f0\'b6\'ee\'d0\'a1\'d3\'da\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'bd\'f0\'b6\'ee, \'c4\'c7\'c3\'b4\'b2\'fa\'c9\'fa\'d0\'c2\'b5\'c4\'d3\'a6\'ca\'d5 / \'d3\'a6\'b8\'b6\'b5\'c4\'c1\'f7\'cb\'ae, \'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd\'ca\'c7\'b2\'ee\'b6\'ee, \'b1\'b8\'d7\'a2\'b5\'a5\'ba\'c5 + "\'d3\'a6\'ca\'d5/\'d3\'a6\'b8\'b6\'b2\'ee\'b6\'ee"\par
+'        \'c8\'e7\'b9\'fb\'b5\'c8\'d3\'da, \'b1\'a3\'b4\'e6\'b1\'b8\'d7\'a2 \'b5\'a5\'ba\'c5 + "\'bb\'d8\'bf\'ee"\par
+\par
+'3.\'d2\'d1\'b3\'f6\'c6\'b1\'b5\'c4\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'ca\'b1\'a3\'ba\par
+'    \'cf\'d4\'ca\'be\'b5\'b1\'c7\'b0\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b6\'d4\'d3\'a6\'b5\'c4\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'c1\'d0\'b1\'ed, \'b2\'bb\'bf\'c9\'b1\'e0\'bc\'ad\par
+\par
+'1.\'d0\'c2\'d4\'f6\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'ca\'b1\'a3\'ba\par
+If Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0\'d7\'b4\'cc\'ac") = "\'d0\'c2\'d4\'f6" Then\par
+    Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1").Fill("select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where (\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2='\'d3\'a6\'ca\'d5' or \'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2='\'d3\'a6\'b8\'b6') and (\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac='' or \'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac is null)", "LiteInvoiceNew2024", False)\par
+ElseIf Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0\'d7\'b4\'cc\'ac") = "\'b2\'e9\'bf\'b4" Then\par
+    Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1").Fill("select * from dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae where (\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2='\'d3\'a6\'ca\'d5' or \'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2='\'d3\'a6\'b8\'b6') and \'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac like '%\'d1\'a1\'d6\'d0%' and \'b1\'b8\'d7\'a2 like '%" & Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "%'", "LiteInvoiceNew2024", False)\par
+End If \par
+\par
+\par
+\par
+If Tables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Current("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1"  Then 'AndAlso Tables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Current("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") <> ""\par
+    cb2.Enabled = False\par
+    cb3.Enabled = False\par
+    dp1.Enabled = False\par
+    db1.Enabled = False\par
+    nb1.Enabled = False\par
+    tb.Enabled = False\par
+    tb1.Enabled = False\par
+End If\par
+\par
+For Each r As Row In Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1")\par
+    r.Checked = r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac").contains("\'d1\'a1\'d6\'d0")\par
+Next \par
+\par
+'\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd\par
+Functions.Execute("\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd", "\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1")\par
+Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1").DefaultRowHeight=35\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_AfterShow\par
+\par
+\cf3 '\'b9\'b4\'d1\'a1\par
+For Each r As Row In Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1").Rows\par
+    If r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0" Then\par
+        r.Checked = True\par
+    End If \par
+Next\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_btn_Click\par
+\par
+\cf3 '\'bc\'c6\'cb\'e3\'d1\'a1\'d6\'d0\'c1\'d0\'b1\'ed\'d6\'d0\'b5\'c4\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'bf\'ee,\'bc\'c6\'cb\'e3\'d7\'dc\'bd\'f0\'b6\'ee\par
+'1 \'c8\'e7\'b9\'fb\'d7\'dc\'bd\'f0\'b6\'ee\'ce\'aa0 \'a3\'ac\'b5\'a5\'b4\'bf\'b5\'c4\'cc\'ed\'bc\'d3\'d2\'bb\'b1\'ca\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'a3\'ac\'d6\'b1\'bd\'d3\'b1\'a3\'b4\'e6\'b5\'b1\'c7\'b0\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\par
+\par
+'2.\'c8\'e7\'b9\'fb\'d7\'dc\'bd\'f0\'b6\'ee\'d3\'eb\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'cf\'e0\'b5\'c8\'a3\'ac\'c4\'c7\'c3\'b4\'cf\'e0\'b5\'d6\'cf\'fb\par
+Dim t1 As Table = Tables("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_Table1")\par
+\par
+Dim nmb1 As WinForm.NumericComboBox = e.Form.Controls("NumericComboBox1")\par
+Dim \'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee As Double = nmb1.Value\par
+\par
+Dim \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee As Double\par
+\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee = t1.Compute("sum(\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee)", "\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac='\'d1\'a1\'d6\'d0'")\par
+\par
+'\'c8\'e7\'b9\'fb\'d3\'a6\'ca\'d5\'ba\'cd\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'cf\'e0\'b5\'c8\par
+If \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee - \'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee = 0 Then\par
+    For Each r As Row In t1.Rows\par
+        If r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0" Then\par
+            r("\'b1\'b8\'d7\'a2") = r("\'b1\'b8\'d7\'a2") & "--\'b5\'a5\'ba\'c5" & Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & " \'bb\'d8\'bf\'ee\'c1\'cb"\par
+            r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0-\'d2\'d1\'ca\'d5"\par
+            r.Save()\par
+        End If\par
+    Next\par
+    Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1"\par
+    '\'c8\'e7\'b9\'fb\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'b4\'f3\'d3\'da\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'bd\'f0\'b6\'ee\par
+ElseIf \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee - \'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee > 0 And \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee > 0 Then\par
+    Dim result As DialogResult\par
+    result = MessageBox.Show("\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'b4\'f3\'d3\'da\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'bd\'f0\'b6\'ee\'a3\'ac\'ca\'c7\'b7\'f1\'bc\'cc\'d0\'f8\'a3\'bf", "\'cc\'e1\'ca\'be", MessageBoxButtons.YesNo, MessageBoxIcon.Question)\par
+    If result = DialogResult.Yes Then\par
+        For Each r As Row In t1.Rows\par
+            If r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0" Then\par
+                r("\'b1\'b8\'d7\'a2") = r("\'b1\'b8\'d7\'a2") & "--\'b5\'a5\'ba\'c5" & Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & " \'bb\'d8\'bf\'ee\'c1\'cb"\par
+                r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0-\'d2\'d1\'ca\'d5"\par
+                r("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1"\par
+                r.Save()\par
+            End If\par
+        Next\par
+        Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1"\par
+        '\'c9\'fa\'b3\'c9\'b2\'ee\'b6\'ee\'b5\'c4\'d0\'c2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\par
+        Dim dr As Row = Tables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").AddNew()\par
+        dr("\'c8\'d5\'c6\'da") = Date.Today()\par
+        dr("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "HK" & Format(Date.Now, "yyyyMMddHHmmss")\par
+        dr("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+        dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+        If Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'bb\'e3\'b3\'f6" Then\par
+            dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'d3\'a6\'b8\'b6"\par
+        ElseIf Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'bb\'e3\'c8\'eb" Then\par
+            dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'d3\'a6\'ca\'d5"\par
+        End If\par
+        dr("\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee") = \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee - \'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\par
+        If Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'b9\'ab\'d5\'cb" Then\par
+            dr("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'b2\'ee\'b6\'ee"\par
+        ElseIf Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'cf\'d6\'bd\'f0" Then\par
+            dr("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'b2\'ee\'b6\'ee\'cf\'d6\'bd\'f0"\par
+        End If\par
+        dr("\'be\'ad\'ca\'d6\'c8\'cb") = User.Name\par
+        dr("\'b1\'b8\'d7\'a2") = Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "\'b5\'c4\'d3\'a6\'ca\'d5/\'d3\'a6\'b8\'b6\'bd\'f0\'b6\'ee"\par
+        dr("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1"\par
+        \par
+        dr.Save()\par
+    Else\par
+        \par
+        Return\par
+    End If \par
+    \par
+ElseIf \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee - \'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee < 0 And \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee > 0 Then\par
+    Dim result As DialogResult\par
+    result = MessageBox.Show("\'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee\'d0\'a1\'d3\'da\'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'bd\'f0\'b6\'ee\'a3\'ac\'ca\'c7\'b7\'f1\'bc\'cc\'d0\'f8\'a3\'bf", "\'cc\'e1\'ca\'be", MessageBoxButtons.YesNo, MessageBoxIcon.Question)\par
+    If result = DialogResult.Yes Then\par
+        For Each r As Row In t1.Rows\par
+            If r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0" Then\par
+                r("\'b1\'b8\'d7\'a2") = r("\'b1\'b8\'d7\'a2") & "--\'b5\'a5\'ba\'c5" & Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & " \'bb\'d8\'bf\'ee\'c1\'cb"\par
+                r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0-\'d2\'d1\'ca\'d5"\par
+                r.Save()\par
+            End If\par
+        Next\par
+        Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'d7\'b4\'cc\'ac") = "\'d2\'d1\'b3\'f6\'c6\'b1"\par
+        '\'c9\'fa\'b3\'c9\'b2\'ee\'b6\'ee\'b5\'c4\'d0\'c2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\par
+        Dim dr As Row = Tables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").AddNew()\par
+        dr("\'c8\'d5\'c6\'da") = Date.Today()\par
+        dr("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "HK" & Format(Date.Now, "yyyyMMddHHmmss")\par
+        dr("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+        dr("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+        dr("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2")\par
+        dr("\'c1\'f7\'cb\'ae\'bd\'f0\'b6\'ee") = \'bb\'e3\'bf\'ee\'bd\'f0\'b6\'ee - \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'d7\'dc\'bd\'f0\'b6\'ee\par
+        dr("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'b2\'ee\'b6\'ee"\par
+        dr("\'be\'ad\'ca\'d6\'c8\'cb") = User.Name\par
+        dr("\'b1\'b8\'d7\'a2") = Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0")("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") & "\'b5\'c4\'b6\'e0\'d3\'e0\'bd\'f0\'b6\'ee"\par
+        dr("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac") = "\'d1\'a1\'d6\'d0"\par
+        dr.Save()\par
+    Else\par
+        \par
+        Return\par
+    End If \par
+End If \par
+\par
+'\'b1\'a3\'b3\'d6\'b5\'b1\'c7\'b0\'d0\'c2\'d4\'f6\'b5\'c4\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5\par
+Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0").Save\par
+e.Form.Close()\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Load()\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_DropBox1_KeyDown\par
+\par
+\cf3 Dim drp As WinForm.DropDownBox = e.sender\par
+If drp.DroppedDown Then '\'c8\'e7\'b9\'fb\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\'d2\'d1\'be\'ad\'b4\'f2\'bf\'aa\par
+    Dim tbl As Table = Tables("\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+    If e.KeyCode = Keys.Up Then '\'c8\'e7\'b9\'fb\'b0\'b4\'cf\'c2\'b5\'c4\'ca\'c7\'c9\'cf\'bc\'fd\'cd\'b7\'b0\'b4\'bc\'fc\par
+        tbl.Position = tbl.Position - 1 '\'cf\'f2\'c9\'cf\'d2\'c6\'b6\'af\'d2\'bb\'d0\'d0\par
+        e.Cancel = True\par
+    ElseIf e.KeyCode = Keys.Down Then '\'c8\'e7\'b9\'fb\'b0\'b4\'cf\'c2\'b5\'c4\'ca\'c7\'cf\'c2\'bc\'fd\'cd\'b7\'b0\'b4\'bc\'fc\par
+        tbl.Position = tbl.Position + 1 '\'cf\'f2\'cf\'c2\'d2\'c6\'b6\'af\'d2\'bb\'d0\'d0\par
+        e.Cancel = True\par
+    End If\par
+End If\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_DropBox1_KeyPress\par
+\par
+\cf3 Dim drp As WinForm.DropDownBox = e.Sender\par
+If drp.DroppedDown = False  Then'\'c8\'e7\'b9\'fb\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\'c3\'bb\'d3\'d0\'b4\'f2\'bf\'aa\par
+    drp.OpenDropDown() '\'b4\'f2\'bf\'aa\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\par
+End If\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_DropBox1_TextChanged\par
+\par
+\cf3 Dim drp As WinForm.DropDownBox = e.sender\par
+If drp.DroppedDown Then '\'c8\'e7\'b9\'fb\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\'d2\'d1\'be\'ad\'b4\'f2\'bf\'aa\par
+    Dim tbl As Table = Tables("\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+    If drp.Text = "" Then '\'c8\'e7\'b9\'fb\'c4\'da\'c8\'dd\'ce\'aa\'bf\'d5\par
+        tbl.Filter = "" '\'cf\'d4\'ca\'be\'cb\'f9\'d3\'d0\'bf\'cd\'bb\'a7\par
+    Else '\'b7\'f1\'d4\'f2\'b8\'f9\'be\'dd\'ca\'e4\'c8\'eb\'c4\'da\'c8\'dd\'bd\'f8\'d0\'d0\'c4\'a3\'ba\'fd\'c9\'b8\'d1\'a1\par
+        Dim txt As String = "'%" & drp.Text & "%'"\par
+        tbl.Filter = "\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6 Like " & txt & " Or \'c1\'aa\'cf\'b5\'c8\'cb Like " & txt \par
+    End If\par
+End If\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_DropBox1_Validating\par
+\par
+\cf3 Dim drp As WinForm.DropDownBox = e.sender\par
+If drp.DroppedDown Then '\'c8\'e7\'b9\'fb\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\'d2\'d1\'be\'ad\'b4\'f2\'bf\'aa \par
+    drp.CloseDropdown(False) '\'b9\'d8\'b1\'d5\'cf\'c2\'c0\'ad\'b4\'b0\'bf\'da\par
+End If\par
+\par
+\cf2\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae_NumericComboBox1_Validating\par
+\par
+\cf3 If e.Sender.Value < 0 Then\par
+    MessageBox.Show("\'c7\'eb\'ca\'e4\'c8\'eb\'d5\'fd\'c8\'b7\'bd\'f0\'b6\'ee")\par
+    e.Cancel = True '\'d4\'f2\'bd\'fb\'d6\'b9\'cd\'cb\'b3\'f6\'b1\'e0\'bc\'ad\'c4\'a3\'ca\'bd  \par
+End If\par
+\par
+\cf2\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_DropDownClosed\par
+\par
+\cf3 If e.Selected Then '\'c8\'e7\'b9\'fb\'d1\'a1\'d4\'f1\'c1\'cb\'d6\'b5\par
+    Dim tbl As Table = Tables("\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+    If tbl.Current IsNot Nothing Then\par
+        e.Form.DropDownBox.Text = tbl.Current("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+        '        Tables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Current("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6") = tbl.Current("\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6")\par
+        '        Tables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Current("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = tbl.Current("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5")\par
+    End If\par
+    \par
+    If e.Form.DropTable IsNot Nothing Then '\'c8\'e7\'b9\'fb\'ca\'c7\'cd\'a8\'b9\'fd\'b1\'ed\'cf\'c2\'c0\'ad\'b5\'c4\par
+        e.Form.DropTable.FinishEditing()\par
+    Else '\'c8\'e7\'b9\'fb\'ca\'c7\'cd\'a8\'b9\'fd\'b4\'b0\'bf\'da\'cf\'c2\'c0\'ad\'b5\'c4\par
+        e.Form.DropDownBox.WriteValue()\par
+    End If\par
+End If\par
+\par
+\cf2\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_DropDownOpened\par
+\par
+\cf3 Dim txt As String = e.Form.DropDownBox.Text\par
+Dim tbl As Table = Tables("\'cf\'c2\'c0\'ad\'b5\'a5\'ce\'bb\'d1\'a1\'d4\'f1_Table1")\par
+If txt = "" Then\par
+    tbl.Filter = ""\par
+Else\par
+    txt = "'%" & txt & "%'"\par
+    tbl.Filter = "\'b5\'a5\'ce\'bb\'c3\'fb\'b3\'c6 Like " & txt & " Or \'c1\'aa\'cf\'b5\'c8\'cb Like " & txt\par
+End If\par
+e.Form.DropDownBox.Select()\par
+\par
+\cf1\'d7\'d4\'b6\'a8\'d2\'e5\'ba\'af\'ca\'fd\par
+\par
+\cf2\'c9\'e8\'d6\'c3\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd\par
+\par
+\cf3 Dim a As String = Args(0)\par
+Dim r As DataRow = DataTables("\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd").Find("\'b1\'ed\'c3\'fb='" & a & "' and \'ca\'c7\'b7\'f1\'c6\'f4\'d3\'c3 = True")\par
+If r IsNot Nothing Then\par
+    Tables(a).SetColVisibleWidth(r("\'d1\'f9\'ca\'bd"))\par
+End If\par
+\par
+\cf1\'c8\'ab\'be\'d6\'b4\'fa\'c2\'eb\par
+\par
+\'b2\'cb\'b5\'a5\'ca\'c2\'bc\'fe\par
+\par
+\cf2 _AfterSelRangeChange\par
+\par
+\cf3 Dim t As Table\par
+RibbonMenu.StatusBar.Message3 = ""\par
+Vars("SysUpdateAggregate") = False\par
+If e.Table IsNot CurrentTable OrElse CurrentTable Is Nothing Then\par
+    Return\par
+Else\par
+    t = CurrentTable\par
+End If\par
+If t.TopRow = t.BottomRow AndAlso t.LeftCol = t.RightCol Then\par
+    Return\par
+End If\par
+For c As Integer = t.LeftCol To t.RightCol \par
+    If t.Cols(c).IsNumeric = False Then\par
+        Return\par
+    End If\par
+Next\par
+Vars("SysUpdateAggregate") =  True\par
+\par
+\cf2 _CurrentTableChanged\par
+\par
+\cf3 Vars("SysUpdatePrintInfo") = True\par
+\par
+\cf2 _Load\par
+\par
+\cf3 '\'d2\'d4\'cf\'c2\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'bd\'abCell\'bf\'ec\'bd\'dd\'b2\'cb\'b5\'a5\'d6\'d0\'b2\'bf\'b7\'d6\'c3\'fc\'c1\'ee\'b8\'b4\'d6\'c6\'b5\'bdRange\'bf\'ec\'bd\'dd\'b2\'cb\'b5\'a5\'d6\'d0\par
+'\'c8\'e7\'b9\'fb\'d7\'d4\'d0\'d0\'c9\'e8\'bc\'c6\'c1\'cbRange\'b2\'cb\'b5\'a5,\'bb\'f2\'d5\'df\'b5\'f7\'d5\'fb\'c1\'cb\'d3\'d0\'b9\'d8\'b2\'cb\'b5\'a5\'c3\'fc\'c1\'ee\'b5\'c4\'c3\'fb\'b3\'c6,\'c7\'eb\'d7\'d4\'d0\'d0\'d0\'de\'b8\'c4\'bb\'f2\'c9\'be\'b3\'fd\'d2\'d4\'cf\'c2\'b4\'fa\'c2\'eb\par
+Dim mnu1 As RibbonMenu.ContextMenu = ContextMenus("Cell")\par
+Dim mnu2 As RibbonMenu.ContextMenu = ContextMenus("Range")\par
+If mnu2.Items.Count = 0 '\'c8\'e7\'b9\'fbRange\'bf\'ec\'bd\'dd\'b2\'cb\'b5\'a5\'d6\'d0\'c3\'bb\'d3\'d0\'c3\'fc\'c1\'ee,\'cb\'b5\'c3\'f7\'d3\'c3\'bb\'a7\'c3\'bb\'d3\'d0\'d7\'d4\'d0\'d0\'c9\'e8\'bc\'c6Range\'bf\'ec\'bd\'dd\'b2\'cb\'b5\'a5\par
+    mnu2.Items.Add(ContextMenus("Cell").Items("Cut"),False)\par
+    mnu2.Items.Add(ContextMenus("Cell").Items("Copy"))\par
+    mnu2.Items.Add(ContextMenus("Cell").Items("Paste"))\par
+    mnu2.Items.Add(ContextMenus("Cell").Items("RowMenu"))\par
+    mnu2.Items.Add(ContextMenus("Cell").Items("ColMenu"))\par
+    mnu2.Items.Add(ContextMenus("Cell").Items("Ascending"))\par
+    mnu2.Items.Add(ContextMenus("Cell").Items("Descending"))\par
+    mnu2.Items.Add(ContextMenus("Cell").Items("UnSort"))\par
+End If\par
+\par
+\cf2 _SystemIdle\par
+\par
+\cf3 'If CurrentTable Is Nothing Then\par
+'    Return\par
+'End If\par
+\par
+''\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'b8\'fc\'d0\'c2\'c8\'d5\'b3\'a3\'b9\'a4\'d7\'f7\'c7\'f8"\'d5\'fb\'d0\'d0"\'b0\'b4\'c5\'a5\'b5\'c4\'d7\'b4\'cc\'ac,,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'c1\'cb\'b4\'cb\'b0\'b4\'c5\'a5,\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static lm As RibbonMenu.ToggleButton\par
+'If lm Is Nothing Then\par
+'    lm = RibbonTabs("Common").Groups("Edit").Items("ListMode")\par
+'End If\par
+'If lm.Pressed <> CurrentTable.ListMode Then\par
+'    lm.Pressed = CurrentTable.ListMode\par
+'End If\par
+\par
+''\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'b8\'fc\'d0\'c2\'c8\'d5\'b3\'a3\'b9\'a4\'d7\'f7\'c7\'f8"\'c7\'d0\'bb\'bb"\'b0\'b4\'c5\'a5\'b5\'c4\'d7\'b4\'cc\'ac,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'c1\'cb\'b4\'cb\'b0\'b4\'c5\'a5,\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static tb As RibbonMenu.ToggleButton\par
+'If tb Is Nothing Then\par
+'    tb = CType(RibbonTabs("Common").Groups("SortAndFilter").Items("Toggle"), RibbonMenu.ToggleButton)\par
+'End If\par
+'If (CurrentTable.Filter > "" AndAlso CurrentTable.ApplyFilter = True) OrElse (CurrentTable.Sort > "" AndAlso CurrentTable.ApplySort = True) OrElse (CurrentTable.IsRelation = False AndAlso CurrentTable.DataTable.InBackEndFilterMode = True) Then\par
+'    If tb.Pressed = False Then\par
+'        tb.Pressed = True\par
+'    End If\par
+'Else\par
+'    If tb.Pressed = True Then\par
+'        tb.Pressed = False\par
+'    End If\par
+'End If\par
+\par
+''\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'b8\'fc\'d0\'c2\'c5\'e4\'d6\'c3\'c0\'b8"\'ba\'f3\'cc\'a8\'c9\'b8\'d1\'a1"\'b0\'b4\'c5\'a5\'b5\'c4\'d7\'b4\'cc\'ac,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'c1\'cb\'b4\'cb\'b0\'b4\'c5\'a5,\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static bf As RibbonMenu.ToggleButton\par
+'If bf Is Nothing Then\par
+'    bf = CType(ConfigBar.Items("BackEndFilter"), RibbonMenu.ToggleButton)\par
+'End If\par
+'If CurrentTable.AllowBackEndFilter Then\par
+'    If bf.Pressed = False Then\par
+'        bf.Pressed = True\par
+'    End If\par
+'Else\par
+'    If bf.Pressed\par
+'        bf.Pressed = False\par
+'    End If\par
+'End If\par
+\par
+''\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'be\'f6\'b6\'a8\'c8\'d5\'b3\'a3\'b9\'a4\'d7\'f7\'b9\'a6\'c4\'dc\'c7\'f8\'b5\'c4"\'c9\'b8\'d1\'a1"\'b0\'b4\'c5\'a5\'ca\'c7\'b7\'f1\'bf\'c9\'d3\'c3,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'c1\'cb\'b4\'cb\'b0\'b4\'c5\'a5,\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static fm As RibbonMenu.MenuButton\par
+'If fm Is Nothing Then\par
+'    fm = CType(RibbonTabs("Common").Groups("SortAndFilter").Items("Filter"), RibbonMenu.MenuButton)\par
+'End If\par
+'If CurrentTable.Position < 0 OrElse CurrentTable.ColSel < 0 Then \par
+'    If fm.Enabled Then\par
+'        fm.Enabled = False\par
+'    End If\par
+'Else\par
+'    If Not fm.Enabled Then\par
+'        fm.Enabled = True\par
+'    End If\par
+'End If\par
+\par
+''\'d2\'d4\'cf\'c2\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'b8\'fc\'d0\'c2\'b9\'dc\'c0\'ed\'cf\'ee\'c4\'bf\'b9\'a6\'c4\'dc\'c7\'f8"\'d4\'dd\'cd\'a3\'bc\'c6\'bb\'ae"\'b0\'b4\'c5\'a5\'b5\'c4\'d7\'b4\'cc\'ac,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'b4\'cb\'b0\'b4\'c5\'a5,\'d2\'b2\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static tp As RibbonMenu.ToggleButton\par
+'If tp Is Nothing Then\par
+'    tp = CType(RibbonTabs("Project").Groups("Timers").Items("Pause"), RibbonMenu.ToggleButton)\par
+'End If\par
+'If Mytimers.Pause Then\par
+'    If tp.Pressed = False Then tp.Pressed = True\par
+'Else\par
+'    If tp.Pressed  Then tp.Pressed = False\par
+'End If\par
+\par
+''\'d2\'d4\'cf\'c2\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'b8\'fc\'d0\'c2\'c5\'e4\'d6\'c3\'c0\'b8"\'b2\'e9\'d4\'c4\'c4\'a3\'ca\'bd"\'b0\'b4\'c5\'a5\'b5\'c4\'d7\'b4\'cc\'ac,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'b4\'cb\'b0\'b4\'c5\'a5,\'d2\'b2\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static bm As RibbonMenu.ToggleButton\par
+'If bm Is Nothing Then\par
+'    bm = Ctype(ConfigBar.Items("BrowseMode"),RibbonMenu.ToggleButton)\par
+'End If\par
+'If DataTables.AllowEdit Then\par
+'    If bm.Pressed Then bm.Pressed = False\par
+'Else\par
+'   If bm.Pressed =False Then bm.Pressed = True\par
+'End If\par
+\par
+''\'d2\'d4\'cf\'c2\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'b8\'fc\'d0\'c2\'c5\'e4\'d6\'c3\'c0\'b8"\'bf\'ec\'cb\'d9\'b1\'e0\'bc\'ad"\'b0\'b4\'c5\'a5\'b5\'c4\'d7\'b4\'cc\'ac,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'b4\'cb\'b0\'b4\'c5\'a5,\'d2\'b2\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static qe As RibbonMenu.ToggleButton\par
+'If qe Is Nothing Then\par
+'    qe = Ctype(ConfigBar.Items("QuikEdit"),RibbonMenu.ToggleButton)\par
+'End If\par
+'If DataTables.PreserveEditMode Then\par
+'    If qe.Pressed = False Then qe.Pressed = True\par
+'Else\par
+'   If qe.Pressed  Then qe.Pressed = False\par
+'End If\par
+\par
+\par
+''\'d2\'d4\'cf\'c2\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'b8\'fc\'d0\'c2\'c5\'e4\'d6\'c3\'c0\'b8"\'bc\'c7\'c2\'bc\'b4\'b0\'bf\'da"\'b0\'b4\'c5\'a5\'b5\'c4\'d7\'b4\'cc\'ac,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'b4\'cb\'b0\'b4\'c5\'a5,\'d2\'b2\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static rw As RibbonMenu.ToggleButton\par
+'If rw Is Nothing Then\par
+'    rw = Ctype(ConfigBar.Items("RecordWindow"),RibbonMenu.ToggleButton)\par
+'End If\par
+'If CurrentTable.RecordGridVisible Then\par
+'    If rw.Pressed =False Then rw.Pressed = True\par
+'Else\par
+'   If rw.Pressed Then rw.Pressed = False\par
+'End If\par
+\par
+''\'d2\'d4\'cf\'c2\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'b8\'fc\'d0\'c2\'bf\'ec\'cb\'d9\'b7\'c3\'ce\'ca\'c0\'b8\'d6\'d0\'b5\'c4"\'b3\'b7\'cf\'fa"\'ba\'cd"\'d6\'d8\'d7\'f6"\'b0\'b4\'c5\'a5\'b5\'c4\'d7\'b4\'cc\'ac,\'c8\'e7\'b9\'fb\'b0\'b4\'c5\'a5\'d2\'d1\'be\'ad\'b8\'c4\'c3\'fb\'bb\'f2\'d5\'df\'d2\'c6\'b5\'bd\'b1\'f0\'b5\'c4\'b9\'a6\'c4\'dc\'c7\'f8,\'c7\'eb\'b6\'d4\'d3\'a6\'b5\'d8\'d0\'de\'b8\'c4\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+''\'c8\'e7\'b9\'fb\'c9\'be\'b3\'fd\'c1\'cb\'d5\'e2\'c1\'bd\'b8\'f6\'b0\'b4\'c5\'a5,\'d2\'b2\'d3\'a6\'b8\'c3\'c9\'be\'b3\'fd\'b4\'cb\'b6\'ce\'b4\'fa\'c2\'eb\par
+'Static Undo As RibbonMenu.Button\par
+'Static Redo As RibbonMenu.Button\par
+'If Undo Is Nothing Then\par
+'    Undo = QAT.Items("Undo")\par
+'    Redo = QAT.Items("Redo")\par
+'End If\par
+'If CurrentTable.CanUndo Then\par
+'    If Undo.Enabled = False Then Undo.Enabled = True\par
+'Else\par
+'    If Undo.Enabled  Then Undo.Enabled = False\par
+'End If\par
+'If CurrentTable.CanRedo Then\par
+'    If Redo.Enabled = False Then Redo.Enabled = True\par
+'Else\par
+'    If Redo.Enabled Then Redo.Enabled = False\par
+'End If\par
+\par
+'Dim t As Table = CurrentTable\par
+\par
+''\'d2\'d4\'cf\'c2\'b4\'fa\'c2\'eb\'d3\'c3\'d3\'da\'d4\'da\'d7\'b4\'cc\'ac\'c0\'b8\'cf\'d4\'ca\'be\'d7\'d4\'b6\'af\'bc\'c6\'cb\'e3\'bd\'e1\'b9\'fb,\'c8\'e7\'b9\'fb\'b2\'bb\'d0\'e8\'d2\'aa\'d7\'d4\'b6\'af\'bc\'c6\'cb\'e3,\'bf\'c9\'c9\'be\'b3\'fd\'d5\'e2\'d2\'bb\'b6\'ce\par
+'If Vars("SysUpdateAggregate") \par
+'    If System.Windows.Forms.Control.MouseButtons <> System.Windows.Forms.MouseButtons.None OrElse System.Windows.Forms.Control.ModifierKeys <> System.Windows.Forms.Keys.None Then\par
+'        Return\par
+'    End If\par
+'    Dim Str1 As String = ""\par
+'    Vars("SysUpdateAggregate") = False\par
+'    With RibbonTabs("Other").Groups("Aggregate")\par
+'        With CType(.Items("Aggregate"), RibbonMenu.ToggleButton)\par
+'            If .Pressed = False Then\par
+'                Return\par
+'            End If\par
+'        End With\par
+'        If CType(.Items("Count"), RibbonMenu.CheckBox).Checked Then\par
+'            Str1 = Str1 & "\'bc\'c6\'ca\'fd:" & t.Aggregate(AggregateEnum.Count, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'        End If\par
+'        If CType(.Items("Sum"), RibbonMenu.CheckBox).Checked Then\par
+'            Str1 = Str1 & "\'c0\'db\'bc\'c6:" & t.Aggregate(AggregateEnum.Sum, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'        End If\par
+'        If CType(.Items("Average"), RibbonMenu.CheckBox).Checked Then\par
+'            Str1 = Str1 & "\'c6\'bd\'be\'f9:" & t.Aggregate(AggregateEnum.Average, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'        End If\par
+'        If CType(.Items("Max"), RibbonMenu.CheckBox).Checked Then\par
+'            Str1 = Str1 & "\'d7\'ee\'b4\'f3:" & t.Aggregate(AggregateEnum.Max, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'        End If\par
+'        If CType(.Items("Min"), RibbonMenu.CheckBox).Checked Then\par
+'            Str1 = Str1 & "\'d7\'ee\'d0\'a1:" & t.Aggregate(AggregateEnum.Min, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'        End If\par
+'        With CType(.Items("Other"), RibbonMenu.MenuButton)\par
+'            If CType(.Items("Std"), RibbonMenu.ToggleButton).Pressed Then\par
+'                Str1 = Str1 & "\'b1\'ea\'d7\'bc\'b2\'ee:" & t.Aggregate(AggregateEnum.Std, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'            End If\par
+'            If CType(.Items("StdPop"), RibbonMenu.ToggleButton).Pressed Then\par
+'                Str1 = Str1 & "\'d7\'dc\'cc\'e5\'b1\'ea\'d7\'bc\'b2\'ee:" & t.Aggregate(AggregateEnum.StdPop, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'            End If\par
+'            If CType(.Items("Var"), RibbonMenu.ToggleButton).Pressed Then\par
+'                Str1 = Str1 & "\'b7\'bd\'b2\'ee:" & t.Aggregate(AggregateEnum.Var, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'            End If\par
+'            If CType(.Items("VarPop"), RibbonMenu.ToggleButton).Pressed Then\par
+'                Str1 = Str1 & "\'d7\'dc\'cc\'e5\'b7\'bd\'b2\'ee:" & t.Aggregate(AggregateEnum.VarPop, t.TopRow, t.LeftCol, t.BottomRow, t.RightCol) & " "\par
+'            End If\par
+'        End With\par
+'    End With\par
+'    RibbonMenu.StatusBar.Message3 = Str1\par
+'End If\par
+\par
+\cf2 Cell_Ascending_Click\par
+\par
+\cf3 Syscmd.Sort.Ascending()\par
+\par
+\cf2 Cell_ColMenu_Add_AddDataCol_Click\par
+\par
+\cf3 Syscmd.Column.AddDataColumn()\par
+\par
+\cf2 Cell_ColMenu_Add_AddExprCol_Click\par
+\par
+\cf3 Syscmd.Column.AddExpressionColumn()\par
+\par
+\cf2 Cell_ColMenu_Delete_Click\par
+\par
+\cf3 Syscmd.Column.Delete()\par
+\par
+\cf2 Cell_ColMenu_Expression_Click\par
+\par
+\cf3 Syscmd.Column.EditExpression()\par
+\par
+\cf2 Cell_ColMenu_Freeze_Click\par
+\par
+\cf3 Syscmd.Column.Freeze()\par
+\par
+\cf2 Cell_ColMenu_Hide_Click\par
+\par
+\cf3 Syscmd.Column.Hide()\par
+\par
+\cf2 Cell_ColMenu_Insert_InsertDataCol_Click\par
+\par
+\cf3 Syscmd.Column.InsertDataColumn()\par
+\par
+\cf2 Cell_ColMenu_Insert_InsertExprCol_Click\par
+\par
+\cf3 Syscmd.Column.InsertExpressionColumn()\par
+\par
+\cf2 Cell_ColMenu_Lock_Click\par
+\par
+\cf3 Syscmd.Column.Lock()\par
+\par
+\cf2 Cell_ColMenu_Modify_Click\par
+\par
+\cf3 Syscmd.Column.Modify()\par
+\par
+\cf2 Cell_ColMenu_MoveLeft_Click\par
+\par
+\cf3 Syscmd.Column.MoveLeft()\par
+\par
+\cf2 Cell_ColMenu_MoveRight_Click\par
+\par
+\cf3 Syscmd.Column.MoveRight()\par
+\par
+\cf2 Cell_ColMenu_Property_Click\par
+\par
+\cf3 Syscmd.Column.ModifyProperty()\par
+\par
+\cf2 Cell_ColMenu_Reset_Click\par
+\par
+\cf3 If CurrentTable IsNot Nothing AndAlso CurrentTable.ColSel >= 0 Then\par
+    Dim dc As DataCol = CurrentTable.Cols(CurrentTable.ColSel).DataCol\par
+    dc.RaiseDataColchanged()\par
+End If\par
+\par
+\cf2 Cell_ColMenu_UnFreeze_Click\par
+\par
+\cf3 Syscmd.Column.UnFreeze()\par
+\par
+\cf2 Cell_ColMenu_UnHide_Click\par
+\par
+\cf3 Syscmd.Column.UnHide()\par
+\par
+\cf2 Cell_ColMenu_Unlock_Click\par
+\par
+\cf3 Syscmd.Column.Unlock()\par
+\par
+\cf2 Cell_Copy_Click\par
+\par
+\cf3 Syscmd.Edit.Copy()\par
+\par
+\cf2 Cell_Cut_Click\par
+\par
+\cf3 Syscmd.Edit.Cut()\par
+\par
+\cf2 Cell_Descending_Click\par
+\par
+\cf3 Syscmd.Sort.Descending()\par
+\par
+\cf2 Cell_DockSetting_Click\par
+\par
+\cf3 Syscmd.Table.DockSetting()\par
+\par
+\cf2 Cell_Filter_AdvancedFilter_Click\par
+\par
+\cf3 Syscmd.Filter.Advanced()\par
+\par
+\cf2 Cell_Filter_Equal_Click\par
+\par
+\cf3 Syscmd.Filter.Equal()\par
+\par
+\cf2 Cell_Filter_FilterFalse_Click\par
+\par
+\cf3 Syscmd.Filter.FilterBoolean(False)\par
+\par
+\cf2 Cell_Filter_FilterTrue_Click\par
+\par
+\cf3 Syscmd.Filter.FilterBoolean(True)\par
+\par
+\cf2 Cell_Filter_Less_Click\par
+\par
+\cf3 Syscmd.Filter.LessThan()\par
+\par
+\cf2 Cell_Filter_LessOrEqual_Click\par
+\par
+\cf3 Syscmd.Filter.NotMoreThan()\par
+\par
+\cf2 Cell_Filter_More_Click\par
+\par
+\cf3 Syscmd.Filter.MoreThan()\par
+\par
+\cf2 Cell_Filter_MoreOrEqual_Click\par
+\par
+\cf3 Syscmd.Filter.NotLessThan()\par
+\par
+\cf2 Cell_Filter_NotEqual_Click\par
+\par
+\cf3 Syscmd.Filter.UnEqual()\par
+\par
+\cf2 Cell_Filter_NotNull_Click\par
+\par
+\cf3 Syscmd.Filter.NotNull()\par
+\par
+\cf2 Cell_Filter_Null_Click\par
+\par
+\cf3 Syscmd.Filter.Null()\par
+\par
+\cf2 Cell_Filter_Period_M1_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(1)\par
+\par
+\cf2 Cell_Filter_Period_M10_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(10)\par
+\par
+\cf2 Cell_Filter_Period_M11_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(11)\par
+\par
+\cf2 Cell_Filter_Period_M12_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(12)\par
+\par
+\cf2 Cell_Filter_Period_M2_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(2)\par
+\par
+\cf2 Cell_Filter_Period_M3_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(3)\par
+\par
+\cf2 Cell_Filter_Period_M4_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(4)\par
+\par
+\cf2 Cell_Filter_Period_M5_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(5)\par
+\par
+\cf2 Cell_Filter_Period_M6_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(6)\par
+\par
+\cf2 Cell_Filter_Period_M7_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(7)\par
+\par
+\cf2 Cell_Filter_Period_M8_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(8)\par
+\par
+\cf2 Cell_Filter_Period_M9_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByMonth(9)\par
+\par
+\cf2 Cell_Filter_Period_Q1_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByQuarter(1)\par
+\par
+\cf2 Cell_Filter_Period_Q2_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByQuarter(2)\par
+\par
+\cf2 Cell_Filter_Period_Q3_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByQuarter(3)\par
+\par
+\cf2 Cell_Filter_Period_Q4_Click\par
+\par
+\cf3 Syscmd.Filter.FilterByQuarter(4)\par
+\par
+\cf2 Cell_Filter_Popup\par
+\par
+\cf3 Dim t As Table = CurrentTable\par
+If t.ColSel < 0 Then\par
+    Return\par
+End If\par
+Dim m As RibbonMenu.ContextCommandMenu = e.CommandMenu\par
+Dim c As Col = t.Cols(t.ColSel)\par
+Dim Less As RibbonMenu.ContextCommand = CType(m.Items("Less"), RibbonMenu.ContextCommand)\par
+Dim LessOrEqual As RibbonMenu.ContextCommand = CType(m.Items("LessOrEqual"), RibbonMenu.ContextCommand)\par
+Dim More As RibbonMenu.ContextCommand = CType(m.Items("More"), RibbonMenu.ContextCommand)\par
+Dim MoreOrEqual As RibbonMenu.ContextCommand = CType(m.Items("MoreOrEqual"), RibbonMenu.ContextCommand)\par
+Dim Equal As RibbonMenu.ContextCommand = CType(m.Items("Equal"), RibbonMenu.ContextCommand)\par
+Dim NotEqual As RibbonMenu.ContextCommand = CType(m.Items("NotEqual"), RibbonMenu.ContextCommand)\par
+Dim FilterTrue As RibbonMenu.ContextCommand = CType(m.Items("FilterTrue"), RibbonMenu.ContextCommand)\par
+Dim FilterFalse As RibbonMenu.ContextCommand = CType(m.Items("FilterFalse"), RibbonMenu.ContextCommand)\par
+Dim SamePeriod As RibbonMenu.ContextCommandMenu = CType(m.Items("SamePeriod"), RibbonMenu.ContextCommandMenu)\par
+Dim Period As RibbonMenu.ContextCommandMenu = CType(m.Items("Period"), RibbonMenu.ContextCommandMenu)\par
+Dim StringFilter As RibbonMenu.ContextCommandMenu = CType(m.Items("StringFilter"), RibbonMenu.ContextCommandMenu)\par
+Dim ValueFilter As RibbonMenu.ContextCommandMenu = CType(m.Items("ValueFilter"), RibbonMenu.ContextCommandMenu)\par
+Dim StatusFilter As RibbonMenu.ContextCommandMenu = CType(m.Items("StatusFilter"), RibbonMenu.ContextCommandMenu)\par
+Dim SameValueFilter As RibbonMenu.ContextCommandMenu = CType(m.Items("SameValues"), RibbonMenu.ContextCommandMenu)\par
+Dim AdvancedFilter As RibbonMenu.ContextCommand = CType(m.Items("AdvancedFilter"), RibbonMenu.ContextCommand)\par
+Dim Null As RibbonMenu.ContextCommand = CType(m.Items("Null"), RibbonMenu.ContextCommand)\par
+Dim NotNull As RibbonMenu.ContextCommand = CType(m.Items("NotNull"), RibbonMenu.ContextCommand)\par
+StatusFilter.Delimiter = c.IsBoolean\par
+AdvancedFilter.Delimiter = Not c.IsBoolean\par
+If c.IsDate Then\par
+    ValueFilter.Text = "\'c8\'d5\'c6\'da\'c9\'b8\'d1\'a1"\par
+ElseIf c.IsNumeric Then\par
+    ValueFilter.Text = "\'ca\'fd\'d6\'b5\'c9\'b8\'d1\'a1"\par
+End If\par
+If t.Position < 0 Then\par
+    Less.Visible = False\par
+    LessOrEqual.Visible = False\par
+    More.Visible = False\par
+    MoreOrEqual.Visible = False\par
+    Equal.Visible = False\par
+    NotEqual.Visible = False\par
+    SamePeriod.Visible = False\par
+    Period.Visible = c.IsDate\par
+    Return\par
+Else\par
+    Period.Visible = c.IsDate \par
+    SamePeriod.Visible = c.IsDate\par
+    Sameperiod.Delimiter = Not Period.Visible\par
+    StringFilter.Visible = c.IsString\par
+    ValueFilter.Visible = c.IsDate OrElse c.IsNumeric\par
+    ValueFilter.Delimiter = c.IsNumeric\par
+    If c.IsDate Then\par
+        SamePeriod.Items("Hour").Visible = (c.DataCol.DateTimeFormat <> DateTimeFormatEnum.Date)\par
+        SamePeriod.Items("Minute").Visible = (c.DataCol.DateTimeFormat <> DateTimeFormatEnum.Date)\par
+    End If\par
+End If\par
+If c.IsBoolean Then\par
+    FilterTrue.Visible = True\par
+    FilterFalse.Visible = True\par
+    Equal.Visible = False\par
+    NotEqual.Visible = False\par
+    Less.Visible = False\par
+    More.Visible = False\par
+    LessOrEqual.Visible = False\par
+    MoreOrEqual.Visible = False\par
+    SameValueFilter.Visible = False\par
+    Null.Visible = False\par
+    NotNull.Visible = False\par
+Else\par
+    FilterTrue.Visible = False\par
+    FilterFalse.Visible = False\par
+    Equal.Visible = True\par
+    NotEqual.Visible = True\par
+    Null.Visible = True\par
+    NotNull.Visible = True\par
+    If t.Current.IsNull(t.ColSel) OrElse c.IsString Then\par
+        Less.Visible = False\par
+        More.Visible = False\par
+        LessOrEqual.Visible = False\par
+        MoreOrEqual.Visible = False\par
+    Else\par
+        Less.Visible = True\par
+        More.Visible = True\par
+        LessOrEqual.Visible = True\par
+        MoreOrEqual.Visible = True\par
+    End If\par
+End If\par
+If t.Current.IsNull(t.ColSel) Then\par
+    Equal.Visible = False\par
+    NotEqual.Visible = False\par
+    Sameperiod.Visible = False\par
+    ValueFilter.Delimiter = True\par
+ElseIf c.IsString Then\par
+   Dim v As String = t.Text\par
+    If v > "" AndAlso v.Length > 15 Then\par
+        v = v.SubString(0,15) & "..."\par
+    End If\par
+    Equal.Text = "\'b5\'c8\'d3\'da """ & v & """"\par
+    NotEqual.Text = "\'b2\'bb\'b5\'c8\'d3\'da """ & v  & """"\par
+ElseIf c.IsNumeric Then\par
+    Equal.Text = "\'b5\'c8\'d3\'da " & t.Text\par
+    NotEqual.Text = "\'b2\'bb\'b5\'c8\'d3\'da " & t.Text\par
+    Less.Text = "\'d0\'a1\'d3\'da " & t.Text\par
+    LessOrEqual.Text = "\'b2\'bb\'b4\'f3\'d3\'da " & t.Text\par
+    More.Text = "\'b4\'f3\'d3\'da " & t.Text\par
+    MoreOrEqual.Text = "\'b2\'bb\'d0\'a1\'d3\'da " & t.Text\par
+ElseIf c.IsDate Then\par
+    Equal.Text = "\'b5\'c8\'d3\'da " & t.Text\par
+    NotEqual.Text = "\'b2\'bb\'b5\'c8\'d3\'da " & t.Text\par
+    Less.Text = "\'d4\'e7\'d3\'da " & t.Text\par
+    More.Text = "\'cd\'ed\'d3\'da " & t.Text\par
+    LessOrEqual.Text = "\'b2\'bb\'cd\'ed\'d3\'da " & t.Text\par
+    MoreOrEqual.Text = "\'b2\'bb\'d4\'e7\'d3\'da " & t.Text\par
+End If\par
+\par
+\cf2 Cell_Filter_SamePeriod_Day_Click\par
+\par
+\cf3 Syscmd.Filter.SameDay()\par
+\par
+\cf2 Cell_Filter_SamePeriod_Hour_Click\par
+\par
+\cf3 Syscmd.Filter.SameHour()\par
+\par
+\cf2 Cell_Filter_SamePeriod_Minute_Click\par
+\par
+\cf3 Syscmd.Filter.SameMinute()\par
+\par
+\cf2 Cell_Filter_SamePeriod_Month_Click\par
+\par
+\cf3 Syscmd.Filter.SameMonth()\par
+\par
+\cf2 Cell_Filter_SamePeriod_Quarter_Click\par
+\par
+\cf3 Syscmd.Filter.SameQuarter()\par
+\par
+\cf2 Cell_Filter_SamePeriod_Week_Click\par
+\par
+\cf3 Syscmd.Filter.SameWeek()\par
+\par
+\cf2 Cell_Filter_SamePeriod_Year_Click\par
+\par
+\cf3 Syscmd.Filter.SameYear()\par
+\par
+\cf2 Cell_Filter_SameValues_HideSameValues_Click\par
+\par
+\cf3 Syscmd.Filter.HideSameValues()\par
+\par
+\cf2 Cell_Filter_SameValues_ShowRedundantValues_Click\par
+\par
+\cf3 Syscmd.Filter.ShowRedundantValues()\par
+\par
+\cf2 Cell_Filter_SameValues_ShowSameValues_Click\par
+\par
+\cf3 Syscmd.Filter.ShowSameValues()\par
+\par
+\cf2 Cell_Filter_SameValues_ShowUnqiueValue_Click\par
+\par
+\cf3 Syscmd.Filter.ShowUnqiueValues()\par
+\par
+\cf2 Cell_Filter_StatusFilter_LockedRows_Click\par
+\par
+\cf3 Syscmd.Filter.LockStatusFilter(True)\par
+\par
+\cf2 Cell_Filter_StatusFilter_UnlockedRows_Click\par
+\par
+\cf3 Syscmd.Filter.LockStatusFilter(False)\par
+\par
+\cf2 Cell_Filter_StringFilter_Contains_Click\par
+\par
+\cf3 Syscmd.Filter.Contains()\par
+\par
+\cf2 Cell_Filter_StringFilter_EndsWith_Click\par
+\par
+\cf3 Syscmd.Filter.EndsWith()\par
+\par
+\cf2 Cell_Filter_StringFilter_Equal_Click\par
+\par
+\cf3 Syscmd.Filter.Equal(False)\par
+\par
+\cf2 Cell_Filter_StringFilter_Like_Click\par
+\par
+\cf3 Syscmd.Filter.Like()\par
+\par
+\cf2 Cell_Filter_StringFilter_NotContains_Click\par
+\par
+\cf3 Syscmd.Filter.NotContains()\par
+\par
+\cf2 Cell_Filter_StringFilter_NotEndsWith_Click\par
+\par
+\cf3 Syscmd.Filter.NotEndsWith()\par
+\par
+\cf2 Cell_Filter_StringFilter_NotLike_Click\par
+\par
+\cf3 Syscmd.Filter.NotLike()\par
+\par
+\cf2 Cell_Filter_StringFilter_NotStartsWith_Click\par
+\par
+\cf3 Syscmd.Filter.NotStartsWith()\par
+\par
+\cf2 Cell_Filter_StringFilter_StartsWith_Click\par
+\par
+\cf3 Syscmd.Filter.StartsWith()\par
+\par
+\cf2 Cell_Filter_StringFilter_UnEqual_Click\par
+\par
+\cf3 Syscmd.Filter.UnEqual(False)\par
+\par
+\cf2 Cell_Filter_ValueFilter_Between_Click\par
+\par
+\cf3 Syscmd.Filter.BetWeen()\par
+\par
+\cf2 Cell_Filter_ValueFilter_Equal_Click\par
+\par
+\cf3 Syscmd.Filter.Equal(False)\par
+\par
+\cf2 Cell_Filter_ValueFilter_Less_Click\par
+\par
+\cf3 Syscmd.Filter.LessThan(False)\par
+\par
+\cf2 Cell_Filter_ValueFilter_LessOrEqual_Click\par
+\par
+\cf3 Syscmd.Filter.NotMoreThan(False)\par
+\par
+\cf2 Cell_Filter_ValueFilter_More_Click\par
+\par
+\cf3 Syscmd.Filter.MoreThan(False)\par
+\par
+\cf2 Cell_Filter_ValueFilter_MoreOrEqual_Click\par
+\par
+\cf3 Syscmd.Filter.NotLessThan(False)\par
+\par
+\cf2 Cell_Filter_ValueFilter_NotBetween_Click\par
+\par
+\cf3 Syscmd.Filter.NotBetWeen()\par
+\par
+\cf2 Cell_Filter_ValueFilter_NotEqual_Click\par
+\par
+\cf3 Syscmd.Filter.Unequal(False)\par
+\par
+\cf2 Cell_Filter_ValueFilter_Popup\par
+\par
+\cf3 dim t as Table = CurrentTable\par
+Dim m As RibbonMenu.ContextCommandMenu = e.CommandMenu\par
+Dim c As Col = t.Cols(t.ColSel)\par
+Dim Less As RibbonMenu.ContextCommand = CType(m.Items("Less"), RibbonMenu.ContextCommand)\par
+Dim LessOrEqual As RibbonMenu.ContextCommand = CType(m.Items("LessOrEqual"), RibbonMenu.ContextCommand)\par
+Dim More As RibbonMenu.ContextCommand = CType(m.Items("More"), RibbonMenu.ContextCommand)\par
+Dim MoreOrEqual As RibbonMenu.ContextCommand = CType(m.Items("MoreOrEqual"), RibbonMenu.ContextCommand)\par
+If c.IsDate Then\par
+    Less.Text = "\'d4\'e7\'d3\'da..."\par
+    More.Text = "\'cd\'ed\'d3\'da..."\par
+    LessOrEqual.Text = "\'b2\'bb\'cd\'ed\'d3\'da..."\par
+    MoreOrEqual.Text = "\'b2\'bb\'d4\'e7\'d3\'da..."\par
+Else If c.IsNumeric Then\par
+    Less.Text = "\'d0\'a1\'d3\'da..."\par
+    More.Text = "\'b4\'f3\'d3\'da..."\par
+    LessOrEqual.Text = "\'b2\'bb\'b4\'f3\'d3\'da..."\par
+    MoreOrEqual.Text = "\'b2\'bb\'d0\'a1\'d3\'da..."\par
+End If\par
+\par
+\cf2 Cell_Load_Click\par
+\par
+\cf3 Dim t As Table = CurrentTable\par
+If t.IsRelation = False\par
+    t.DataTable.Load()\par
+End If\par
+\par
+\cf2 Cell_Paste_Click\par
+\par
+\cf3 Syscmd.Edit.Paste()\par
+\par
+\cf2 Cell_Popup\par
+\par
+\cf3 e.ContextMenu.Items("DockSetting").Visible= (CurrentTable.IsChild OrElse CurrentTable.IsParent)\par
+e.ContextMenu.Items("Filter").Enabled = (CurrentTable.Current IsNot Nothing)\par
+e.ContextMenu.Items("Load").Visible = (CurrentTable.IsRelation = False)\par
+e.ContextMenu.Items("\'c7\'ae\'bf\'ee\'d2\'b5\'ce\'f1").Visible = (CurrentTable.Name = "dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae")\par
+e.ContextMenu.Items("\'bf\'aa\'c6\'b1\'d2\'b5\'ce\'f1").Visible = (CurrentTable.Name = "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae")\par
+e.ContextMenu.Items("\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").Visible = (CurrentTable.Name = "dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2")\par
+e.ContextMenu.Items("\'b5\'d6\'bf\'db\'b5\'c7\'bc\'c7").Visible = (CurrentTable.Name = "\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae")\par
+e.ContextMenu.Items("\'b2\'cb\'b5\'a5\'c9\'e8\'bc\'c6").Visible = False\par
+e.ContextMenu.Items("\'b4\'b0\'bf\'da\'c9\'e8\'bc\'c6").Visible = False\par
+\par
+\cf2 Cell_RowMenu_Add_Click\par
+\par
+\cf3 Syscmd.Row.AddNew()\par
+\par
+\cf2 Cell_RowMenu_AddChild_Click\par
+\par
+\cf3 Syscmd.GridTree.AddChild()\par
+\par
+\cf2 Cell_RowMenu_Clone_Click\par
+\par
+\cf3 Syscmd.Row.Clone()\par
+\par
+\cf2 Cell_RowMenu_Delete_Click\par
+\par
+\cf3 Syscmd.Row.Delete()\par
+\par
+\cf2 Cell_RowMenu_Insert_Click\par
+\par
+\cf3 Syscmd.Row.Insert()\par
+\par
+\cf2 Cell_RowMenu_Load_Click\par
+\par
+\cf3 Syscmd.Row.Refresh()\par
+\par
+\cf2 Cell_RowMenu_Lock_Click\par
+\par
+\cf3 Syscmd.Row.Lock()\par
+\par
+\cf2 Cell_RowMenu_MoveDown_Click\par
+\par
+\cf3 Syscmd.Row.MoveDown()\par
+\par
+\cf2 Cell_RowMenu_MoveLeft_Click\par
+\par
+\cf3 Syscmd.GridTree.MoveLeft()\par
+\par
+\cf2 Cell_RowMenu_MoveRight_Click\par
+\par
+\cf3 Syscmd.GridTree.MoveRight()\par
+\par
+\cf2 Cell_RowMenu_Moveup_Click\par
+\par
+\cf3 Syscmd.Row.MoveUp()\par
+\par
+\cf2 Cell_RowMenu_Popup\par
+\par
+\cf3 e.CommandMenu.Items("AddChild").Visible = CurrentTable.GridTreeVisible\par
+e.CommandMenu.Items("MoveLeft").Visible = CurrentTable.GridTreeVisible\par
+e.CommandMenu.Items("MoveRight").Visible = CurrentTable.GridTreeVisible\par
+\par
+\cf2 Cell_RowMenu_UnLock_Click\par
+\par
+\cf3 Syscmd.Row.UnLock()\par
+\par
+\cf2 Cell_Select_Click\par
+\par
+\cf3 Syscmd.Filter.Values()\par
+\par
+\cf2 Cell_UnFilter_Click\par
+\par
+\cf3 Syscmd.Filter.UnFilter()\par
+\par
+\cf2 Cell_UnSort_Click\par
+\par
+\cf3 Syscmd.Sort.UnSort()\par
+\par
+\cf2 Cell_\'b2\'cb\'b5\'a5\'c9\'e8\'bc\'c6_Click\par
+\par
+\cf3 Syscmd.Project.DesignRibbonMenu()\par
+\par
+\cf2 Cell_\'b4\'b0\'bf\'da\'c9\'e8\'bc\'c6_Click\par
+\par
+\cf3 Syscmd.Project.FormDesigner()\par
+\par
+\cf2 Cell_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2_\'d0\'c2\'d4\'f6\'b5\'a5\'ce\'bb_Click\par
+\par
+\cf3 Dim r As Row = Tables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").AddNew()\par
+Dim no As Integer = DataTables("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").SQLCompute("max(\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5)")\par
+r("\'b5\'a5\'ce\'bb\'b1\'e0\'ba\'c5") = no + 1\par
+Forms("\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2").Open()\par
+\par
+\cf2 Cell_\'b5\'d6\'bf\'db\'b5\'c7\'bc\'c7_\'d0\'c2\'d4\'f6\'b5\'d6\'bf\'db_Click\par
+\par
+\cf3 Vars("\'b5\'b1\'c7\'b0\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae\'d7\'b4\'cc\'ac") = "\'d0\'c2\'d4\'f6"\par
+Forms("\'b5\'d6\'bf\'db\'c1\'f7\'cb\'ae").Open()\par
+\par
+\cf2 Cell_\'bf\'aa\'c6\'b1\'d2\'b5\'ce\'f1_\'b2\'e9\'bf\'b4\'bf\'aa\'c6\'b1\'ba\'cd\'bd\'f0\'b6\'ee\'b5\'c4\'b1\'a8\'b1\'ed_Click\par
+\par
+\cf3 Dim Book As New XLS.Book(ProjectPath & "Attachments\\\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'cd\'b3\'bc\'c6.xls")\par
+Dim fl As String = ProjectPath & "Reports\\\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'cd\'b3\'bc\'c6.xls"\par
+book.AddDataTable("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2", "lt", "Select * from \{dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2\}") \par
+book.AddDataTable("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae", "lt", "Select * From \{dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\}") '\'cc\'ed\'bc\'d3\'b8\'b8\'b1\'ed\par
+book.AddDataTable("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed", "lt", "Select * from \{dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed\}") '\'cc\'ed\'bc\'d3\'d7\'d3\'b1\'ed\par
+book.AddRelation("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5", "dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") '\'bd\'a8\'c1\'a2\'b9\'d8\'c1\'aa\par
+Book.Build() '\'c9\'fa\'b3\'c9\'cf\'b8\'bd\'da\'c7\'f8\par
+Book.Save(fl) '\'b1\'a3\'b4\'e6\'b9\'a4\'d7\'f7\'b2\'be\par
+Dim Proc As New Process '\'b4\'f2\'bf\'aa\'b9\'a4\'d7\'f7\'b2\'be\par
+Proc.File = fl\par
+Proc.Start()\par
+\par
+\cf2 Cell_\'bf\'aa\'c6\'b1\'d2\'b5\'ce\'f1_\'b5\'bc\'b3\'f6\'d2\'aa\'bf\'aa\'b5\'c4\'b7\'a2\'c6\'b1\'b8\'f8\'bb\'e1\'bc\'c6_Click\par
+\par
+\cf3 Dim Book As New XLS.Book(ProjectPath & "Attachments\\\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b1\'a8\'b1\'ed.xls")\par
+Dim fl As String = ProjectPath & "Reports\\\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b1\'a8\'b1\'ed.xls"\par
+book.AddDataTable("dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2", "lt", "Select * from \{dbo_\'b5\'a5\'ce\'bb\'d0\'c5\'cf\'a2\}") \par
+book.AddDataTable("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae", "lt", "Select * From \{dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\}") '\'cc\'ed\'bc\'d3\'b8\'b8\'b1\'ed\par
+book.AddDataTable("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed", "lt", "Select * from \{dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed\}") '\'cc\'ed\'bc\'d3\'d7\'d3\'b1\'ed\par
+book.AddRelation("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5", "dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") '\'bd\'a8\'c1\'a2\'b9\'d8\'c1\'aa\par
+Book.Build() '\'c9\'fa\'b3\'c9\'cf\'b8\'bd\'da\'c7\'f8\par
+Book.Save(fl) '\'b1\'a3\'b4\'e6\'b9\'a4\'d7\'f7\'b2\'be\par
+Dim Proc As New Process '\'b4\'f2\'bf\'aa\'b9\'a4\'d7\'f7\'b2\'be\par
+Proc.File = fl\par
+Proc.Start()\par
+\par
+\cf2 Cell_\'bf\'aa\'c6\'b1\'d2\'b5\'ce\'f1_\'c9\'be\'b3\'fd\'bf\'aa\'c6\'b1_Click\par
+\par
+\cf3 Dim no As String = CurrentTable.Current("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+If CurrentTable.Current("\'d7\'b4\'cc\'ac") <> "\'d2\'d1\'c9\'f3\'ba\'cb" Then\par
+    Dim result As DialogResult = MessageBox.Show("\'c8\'b7\'b6\'a8\'c9\'be\'b3\'fd\'b5\'b1\'c7\'b0\'b5\'c4\'bf\'aa\'c6\'b1\'c2\'f0\'a3\'bf", "\'cc\'e1\'ca\'be", MessageBoxButtons.YesNo)\par
+    If result = DialogResult.Yes Then\par
+        DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").sqlDeleteFor("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & no & "'")\par
+        DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").sqlDeleteFor("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & no & "'")\par
+        DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").sqlReplaceFor("\'d1\'a1\'d6\'d0", "", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & no & "'")\par
+        DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").sqlReplaceFor("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5", "", "\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5='" & no & "'")\par
+\par
+         DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").Save\par
+         DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b1\'ed").Save\par
+         DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Save\par
+        DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").Load()\par
+        DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Load()\par
+        DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table1").Load\par
+        DataTables("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'c3\'f7\'cf\'b8\'b4\'b0\'bf\'da_Table2").Load\par
+\par
+    End If \par
+Else\par
+    MessageBox.Show("\'d2\'d1\'c9\'f3\'ba\'cb\'b5\'c4\'b5\'a5\'d7\'d3\'b2\'bb\'c4\'dc\'c9\'be\'b3\'fd")\par
+End If\par
+\par
+\cf2 Cell_\'bf\'aa\'c6\'b1\'d2\'b5\'ce\'f1_\'d0\'c2\'d4\'f6\'bf\'aa\'c6\'b1_Click\par
+\par
+\cf3 Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'be\'dd\'d7\'b4\'cc\'ac") = "\'d0\'c2\'d4\'f6"\par
+Vars("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'d6\'f7\'b1\'ed\'d0\'c2\'d4\'f6\'d0\'d0") = DataTables("dbo_\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae").AddNew()\par
+Forms("\'bf\'aa\'c6\'b1\'b1\'e0\'bc\'ad").Open()\par
+\par
+\cf2 Cell_\'c7\'ae\'bf\'ee\'d2\'b5\'ce\'f1_\'c9\'be\'b3\'fd\'bb\'e3\'bf\'ee_Click\par
+\par
+\cf3 If CurrentTable.Current("\'bf\'aa\'c6\'b1\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") <> "" Then\par
+    MessageBox.Show("\'b5\'b1\'c7\'b0\'bb\'e3\'bf\'ee\'c1\'f7\'cb\'ae\'d2\'d1\'bf\'aa\'c6\'b1\'a3\'ac\'b2\'bb\'c4\'dc\'c9\'be\'b3\'fd")\par
+    Return\par
+Else\par
+    Dim result As DialogResult\par
+    \par
+    result = MessageBox.Show("\'c8\'b7\'b6\'a8\'c9\'be\'b3\'fd\'b5\'b1\'c7\'b0\'c1\'f7\'cb\'ae\'c2\'f0\'a3\'bf\'b2\'bb\'bf\'c9\'bb\'d6\'b8\'b4\'a3\'bf", "\'cc\'e1\'ca\'be", MessageBoxButtons.YesNo)\par
+    If result = DialogResult.Yes Then\par
+        Dim dh As String = CurrentTable.Current("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5")\par
+        '\'c9\'be\'b3\'fd\'b2\'fa\'c9\'fa\'b5\'c4\'b6\'e0\'d3\'e0\'bd\'f0\'b6\'ee \'bb\'f2\'d5\'df \'d3\'a6\'ca\'d5\'d3\'a6\'b8\'b6\'c1\'f7\'cb\'ae\par
+        DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").SQLDeleteFor("\'b1\'b8\'d7\'a2='" & dh & "\'b5\'c4\'b6\'e0\'d3\'e0\'bd\'f0\'b6\'ee' or \'b1\'b8\'d7\'a2='" & dh & "\'b5\'c4\'d3\'a6\'ca\'d5/\'d3\'a6\'b8\'b6\'bd\'f0\'b6\'ee'")\par
+        Dim str As String = "--\'b5\'a5\'ba\'c5" & dh & " \'bb\'d8\'bf\'ee\'c1\'cb"\par
+        '\'d0\'de\'b8\'c4\'d4\'ad\'c0\'b4\'c1\'f7\'cb\'ae\'b5\'c4\'b1\'b8\'d7\'a2\par
+        Dim drs As List(Of DataRow) = DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").SQLSelect("\'b1\'b8\'d7\'a2 like '%" & str & "'")\par
+        If drs.Count > 0 Then\par
+            For Each r As DataRow In drs\par
+                r("\'b1\'b8\'d7\'a2") = r("\'b1\'b8\'d7\'a2").ToString().Replace(str, "")\par
+                r("\'d3\'a6\'ca\'d5\'bf\'ee\'d7\'b4\'cc\'ac")=""\par
+                r.Save()\par
+            Next \par
+        End If\par
+        '\'c9\'be\'b3\'fd\'b5\'b1\'c7\'b0\'d7\'d4\'c9\'ed\'b5\'c4\'c1\'f7\'cb\'ae\par
+        CurrentTable.Current.Delete()\par
+    Else\par
+        Return\par
+    End If \par
+End If\par
+\par
+DataTables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Load()\par
+\par
+\cf2 Cell_\'c7\'ae\'bf\'ee\'d2\'b5\'ce\'f1_\'d0\'c2\'d4\'f6\'bb\'e3\'bf\'ee_Click\par
+\par
+\cf3 Dim r As Row = Tables("dbo_\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").AddNew()\par
+r("\'c1\'f7\'cb\'ae\'b5\'a5\'ba\'c5") = "HK" & Format(Date.Now, "yyyyMMddHHmmss")\par
+r("\'c8\'d5\'c6\'da") = Date.Today()\par
+r("\'be\'ad\'ca\'d6\'c8\'cb") = User.Name\par
+r("\'c1\'f7\'cb\'ae\'b7\'bd\'cf\'f2") = "\'bb\'e3\'c8\'eb"\par
+r("\'c1\'f7\'cb\'ae\'b7\'bd\'ca\'bd") = "\'b9\'ab\'d5\'cb"\par
+Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0\'d7\'b4\'cc\'ac") = "\'d0\'c2\'d4\'f6"\par
+Vars("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae\'b5\'b1\'c7\'b0\'d0\'d0") = r\par
+Forms("\'c7\'ae\'bf\'ee\'c1\'f7\'cb\'ae").Open()\par
+\par
+\cf2 Column_Ascending_Click\par
+\par
+\cf3 Syscmd.Sort.Ascending()\par
+\par
+\cf2 Column_Desceding_Click\par
+\par
+\cf3 Syscmd.Sort.Descending()\par
+\par
+\cf2 Column_Freeze_Click\par
+\par
+\cf3 Syscmd.Column.Freeze()\par
+\par
+\cf2 Column_Hide_Click\par
+\par
+\cf3 Syscmd.Column.Hide()\par
+\par
+\cf2 Column_Lock_Click\par
+\par
+\cf3 Syscmd.Column.Lock()\par
+\par
+\cf2 Column_MoveLeft_Click\par
+\par
+\cf3 Syscmd.Column.MoveLeft()\par
+\par
+\cf2 Column_MoveRight_Click\par
+\par
+\cf3 Syscmd.Column.MoveRight()\par
+\par
+\cf2 Column_Property_Click\par
+\par
+\cf3 Syscmd.Column.ModifyProperty()\par
+\par
+\cf2 Column_UnFreeze_Click\par
+\par
+\cf3 Syscmd.Column.UnFreeze()\par
+\par
+\cf2 Column_UnHide_Click\par
+\par
+\cf3 Syscmd.Column.UnHide()\par
+\par
+\cf2 Column_Unlock_Click\par
+\par
+\cf3 Syscmd.Column.Unlock()\par
+\par
+\cf2 Column_Width_Click\par
+\par
+\cf3 Syscmd.Column.Width()\par
+\par
+\cf2 Column_\'b6\'c1\'c8\'a1\'d1\'f9\'ca\'bd_Click\par
+\par
+\cf3 Dim cvs As String = CurrentTable.GetColVisibleWidth()\par
+Dim dr As Row = Tables("\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd").AddNew\par
+dr("\'b1\'ed\'c3\'fb") = CurrentTable.Name\par
+dr("\'d1\'f9\'ca\'bd") = cvs\par
+dr("\'ca\'c7\'b7\'f1\'c6\'f4\'d3\'c3") = True\par
+dr.Save()\par
+\par
+\cf2 Column_\'c9\'e8\'d6\'c3\'d1\'f9\'ca\'bd_Click\par
+\par
+\cf3 Forms("\'b1\'ed\'b8\'f1\'d1\'f9\'ca\'bd").Open()\par
+\par
+\cf2 Empty_Add_Click\par
+\par
+\cf3 Syscmd.Row.AddNew()\par
+\par
+\cf2 Empty_DockSetting_Click\par
+\par
+\cf3 Syscmd.Table.DockSetting()\par
+\par
+\cf2 Empty_Popup\par
+\par
+\cf3 e.ContextMenu.Items("DockSetting").Visible = CurrentTable.IsRelation\par
+\par
+\cf2 Empty_UnFilter_Click\par
+\par
+\cf3 Syscmd.Filter.UnFilter()\par
+\par
+\cf2 Redo_Click\par
+\par
+\cf3 Syscmd.Edit.Redo()\par
+\par
+\cf2 Row_del_Click\par
+\par
+\cf3 Syscmd.Row.Delete()\par
+\par
+\cf2 Save_Click\par
+\par
+\cf3 Syscmd.Project.Save()\par
+\par
+\cf2 Undo_Click\par
+\par
+\cf3 Syscmd.Edit.Undo()\par
+\par
+\cf2 Undo_DoubleClick\par
+\par
+\cf3 Syscmd.Edit.Redo()\par
+\par
+\cf0\par
+}
+ 
